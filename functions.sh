@@ -49,19 +49,19 @@ function echo_indent {
 }
 
 function echo_warning {
-	echo_color "YELLOW" $1
+	echo_color "YELLOW" $@
 }
 
 function echo_error {
-	echo_color "RED" $1
+	echo_color "RED" $@
 }
 
 function echo_success {
-	echo_color "GREEN" $1
+	echo_color "GREEN" $@
 }
 
 function echo_info {
-	echo_color "BLUE" $1
+	echo_color "BLUE" $@
 }
 
 function hide_output {
