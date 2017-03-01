@@ -33,7 +33,8 @@ function echo_color {
 	NOCOLOR="\033[0m"
 
 	shift
-	printf "${COLOR}${@}${NOCOLOR}\n"
+	# printf "${COLOR}${@}${NOCOLOR}\n"
+	printf $@
 }
 
 function echo_indent {
