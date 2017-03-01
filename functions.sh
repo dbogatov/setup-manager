@@ -32,7 +32,7 @@ function echo_color {
 	COLOR="\033[${COLOR}m"
 	NOCOLOR="\033[0m"
 
-	echo -e "${COLOR}${2}${NOCOLOR}"
+	printf "${COLOR}${2}${NOCOLOR}\n"
 }
 
 function echo_indent {
