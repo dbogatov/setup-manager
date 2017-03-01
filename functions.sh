@@ -59,6 +59,10 @@ function echo_success {
 	echo_color "GREEN" $1
 }
 
+function echo_info {
+	echo_color "BLUE" $1
+}
+
 function hide_output {
 	# This function hides the output of a command unless the command fails
 	# and returns a non-zero exit code.
