@@ -34,7 +34,7 @@ function echo_color {
 
 	shift
 	# printf "${COLOR}${@}${NOCOLOR}\n"
-	printf $@
+	printf $*
 }
 
 function echo_indent {
