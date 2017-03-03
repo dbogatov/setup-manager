@@ -6,7 +6,7 @@ function configure_byobu {
 
 	byobu-enable
 
-	cp config/byobu/status /home/$USERNAME/.byobu/status
+	cp config/byobu/status ~/.byobu/status
 
 	echo_success "Configured byobu"
 

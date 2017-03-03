@@ -6,6 +6,7 @@ source functions.sh
 source emacs.sh
 source users.sh
 source byobu.sh
+source docker.sh
 
 echo_info "Start setup"
 
@@ -26,9 +27,9 @@ inc_indent
 
 	install_emacs
 
-	
-
 	configure_byobu
+
+	install_docker
 
 dec_indent
 
