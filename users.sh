@@ -6,6 +6,8 @@ function add_user {
 
 	echo $1:$2 | sudo chpasswd
 
+	echo "$3"
+
 	if ! $3 ; then
 		echo_info "Here" ;
 		gpasswd -a dbogatov sudo ;
