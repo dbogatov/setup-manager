@@ -17,5 +17,5 @@ function add_user {
 }
 
 function setup_users {
-	id -u $USERNAME &>/dev/null && echo_success "User $USERNAME exists" || add_user $USERNAME $PASSWORD $(true)
+	id -u $USERNAME &>/dev/null && echo_success "User $USERNAME exists" || add_user $USERNAME $PASSWORD 0
 }
