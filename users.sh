@@ -10,5 +10,5 @@ function add_user {
 }
 
 function setup_users {
-	add_user $USERNAME $PASSWORD
+	id -u $USERNAME &>/dev/null || add_user $USERNAME $PASSWORD
 }
