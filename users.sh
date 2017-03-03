@@ -1,3 +1,5 @@
+source functions.sh
+
 function add_user {
 
 	id -u $USERNAME &>/dev/null \

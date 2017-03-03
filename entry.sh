@@ -5,6 +5,7 @@ set -e
 source functions.sh
 source emacs.sh
 source users.sh
+source byobu.sh
 
 echo_info "Start setup"
 
@@ -21,6 +22,8 @@ inc_indent
 	install_emacs
 
 	setup_users
+
+	configure_byobu
 
 dec_indent
 
