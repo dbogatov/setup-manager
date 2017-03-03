@@ -32,9 +32,7 @@ function echo_color {
 	COLOR="\033[${COLOR}m"
 	NOCOLOR="\033[0m"
 
-	shift
-	# printf "${COLOR}${@}${NOCOLOR}\n"
-	printf $*
+	printf "${COLOR}${2}${NOCOLOR}\n"
 }
 
 function echo_indent {
@@ -50,19 +48,19 @@ function echo_indent {
 }
 
 function echo_warning {
-	echo_color "YELLOW" $@
+	echo_color "YELLOW" "$1"
 }
 
 function echo_error {
-	echo_color "RED" $@
+	echo_color "RED" "$1"
 }
 
 function echo_success {
-	echo_color "GREEN" $@
+	echo_color "GREEN" "$1"
 }
 
 function echo_info {
-	echo_color "BLUE" $@
+	echo_color "CYAN" "$1"
 }
 
 function hide_output {
