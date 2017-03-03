@@ -11,13 +11,14 @@ echo_info "Start setup"
 
 inc_indent
 
-	if [[ $EUID -eq 0 ]]; then
-		echo_error "This script must be run as non-root" 
-	fi
-
 	echo_info "Reading config"
 	. config/global.conf
 	echo_success "Config read"
+
+	if [[ $EUID -eq 0 ]]; then
+		setup_users
+		echo_error "This script must be run as non-root" 
+	fi
 
 	echo_info "Updating packages"
 	apt_get_quiet update
@@ -25,7 +26,7 @@ inc_indent
 
 	install_emacs
 
-	setup_users
+	
 
 	configure_byobu
 
