@@ -45,11 +45,11 @@ function echo_color {
 CURRENT_INDENT=0
 
 function inc_indent {
-	((CURRENT_INDENT++))
+	CURRENT_INDENT=$((CURRENT_INDENT+1))
 }
 
 function dec_indent {
-	((CURRENT_INDENT--))
+	CURRENT_INDENT=$((CURRENT_INDENT-1))
 }
 
 function echo_warning {
