@@ -1,5 +1,11 @@
 function add_user {
 
+	if $3 ; then
+			echo_info "Here" ;
+			gpasswd -a dbogatov sudo ;
+		fi
+
+
 	id -u $USERNAME &>/dev/null \
 	&& echo_success "User $USERNAME exists" || {
 
@@ -9,17 +15,11 @@ function add_user {
 
 		echo $1:$2 | sudo chpasswd
 
-		echo "$3"
-
-		if ! $3 ; then
-			echo_info "Here" ;
-			gpasswd -a dbogatov sudo ;
-		fi
-
+		
 		echo_success "User $1 added"
 	}
 }
 
 function setup_users {
-	add_user $USERNAME $PASSWORD 0
+	add_user $USERNAME $PASSWORD true
 }
