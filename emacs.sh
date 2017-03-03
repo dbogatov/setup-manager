@@ -4,7 +4,7 @@ function install_emacs {
 
 	echo_info "Installing emacs"
 
-	sudo apt_install emacs
+	apt_install emacs
 
 	sudo mkdir -p /root/.emacs.d/
 	sudo cp config/emacs/init.el /root/.emacs.d/init.el
