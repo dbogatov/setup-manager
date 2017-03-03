@@ -2,7 +2,7 @@ function add_user {
 
 	echo_info "Adding user $1 with group $2"
 
-	useradd $1 -m -g $2
+	useradd $1 -m -U
 
 	echo $1:$3 | sudo chpasswd
 

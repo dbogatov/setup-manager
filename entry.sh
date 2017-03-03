@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source functions.sh
 source emacs.sh
 source users.sh
