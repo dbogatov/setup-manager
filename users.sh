@@ -6,8 +6,8 @@ function add_user {
 
 	echo $1:$2 | sudo chpasswd
 
-	if $3 then
-		gpasswd -a dbogatov sudo
+	if $3 ; then
+		gpasswd -a dbogatov sudo ;
 	fi
 
 	echo_success "User $1 added"
