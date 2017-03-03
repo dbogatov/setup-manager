@@ -32,19 +32,24 @@ function echo_color {
 	COLOR="\033[${COLOR}m"
 	NOCOLOR="\033[0m"
 
-	printf "${COLOR}${2}${NOCOLOR}\n"
-}
-
-function echo_indent {
-
 	INDENT=""
 
-	for (( c=1; c<=$1; c++ ))
+	for (( c=1; c<=$CURRENT_INDENT; c++ ))
 	do
 		INDENT="${INDENT}\t"
 	done
- 
-	printf "${INDENT}${2}\n"
+
+	printf "${INDENT}${COLOR}${2}${NOCOLOR}\n"
+}
+
+CURRENT_INDENT=0
+
+function inc_indent {
+	((CURRENT_INDENT++))
+}
+
+function dec_indent {
+	((CURRENT_INDENT--))
 }
 
 function echo_warning {
@@ -56,7 +61,7 @@ function echo_error {
 }
 
 function echo_success {
-	echo_color "GREEN" "$1"
+	echo_color "GREEN" "$1\n"
 }
 
 function echo_info {
