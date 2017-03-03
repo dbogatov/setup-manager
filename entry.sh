@@ -1,8 +1,8 @@
 #!/bin/bash
 
 source functions.sh
-
 source emacs.sh
+source users.sh
 
 echo_info "Start setup"
 
@@ -18,6 +18,8 @@ inc_indent
 	echo_success "Packages updated"
 
 	install_emacs
+
+	setup_users
 
 dec_indent
 
