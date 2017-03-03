@@ -58,6 +58,7 @@ function echo_warning {
 
 function echo_error {
 	echo_color "RED" "$1"
+	exit 1
 }
 
 function echo_success {
@@ -95,7 +96,7 @@ function hide_output {
 }
 
 function apt_get_quiet {
-	DEBIAN_FRONTEND=noninteractive hide_output apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" "$@"
+	DEBIAN_FRONTEND=noninteractive hide_output sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" "$@"
 }
 
 function apt_install {

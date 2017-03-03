@@ -20,7 +20,7 @@ inc_indent
 	echo_success "Config read"
 
 	echo_info "Updating packages"
-	sudo apt_get_quiet update
+	apt_get_quiet update
 	echo_success "Packages updated"
 
 	install_emacs
