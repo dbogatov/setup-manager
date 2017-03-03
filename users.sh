@@ -1,21 +1,25 @@
 function add_user {
 
-	echo_info "Adding user $1 with group $1"
+	id -u $USERNAME &>/dev/null \
+	&& echo_success "User $USERNAME exists" || {
 
-	useradd $1 -m -U
+		echo_info "Adding user $1 with group $1"
 
-	echo $1:$2 | sudo chpasswd
+		useradd $1 -m -U
 
-	echo "$3"
+		echo $1:$2 | sudo chpasswd
 
-	if ! $3 ; then
-		echo_info "Here" ;
-		gpasswd -a dbogatov sudo ;
-	fi
+		echo "$3"
 
-	echo_success "User $1 added"
+		if ! $3 ; then
+			echo_info "Here" ;
+			gpasswd -a dbogatov sudo ;
+		fi
+
+		echo_success "User $1 added"
+	}
 }
 
 function setup_users {
-	id -u $USERNAME &>/dev/null && echo_success "User $USERNAME exists" || add_user $USERNAME $PASSWORD 0
+	add_user $USERNAME $PASSWORD 0
 }
