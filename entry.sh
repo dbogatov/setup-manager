@@ -14,7 +14,6 @@ inc_indent
 	. config/global.conf
 	echo_success "Config read"
 
-
 	echo_info "Updating packages"
 	apt_get_quiet update
 	echo_success "Packages updated"
