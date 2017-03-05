@@ -7,6 +7,7 @@ source emacs.sh
 source users.sh
 source byobu.sh
 source docker.sh
+source nginx.sh
 
 echo_info "Start setup"
 
@@ -30,6 +31,8 @@ inc_indent
 	configure_byobu
 
 	install_docker
+
+	setup_nginx
 
 dec_indent
 
