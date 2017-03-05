@@ -30,7 +30,7 @@ inc_indent
 
 	configure_byobu
 
-	install_docker
+	# install_docker
 
 	setup_nginx
 
