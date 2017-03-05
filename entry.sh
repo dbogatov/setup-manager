@@ -26,6 +26,10 @@ inc_indent
 	apt_get_quiet update
 	echo_success "Packages updated"
 
+	echo_info "Installing core packages"
+	apt_install unzip
+	echo_success "Core packages installed"
+
 	install_emacs
 
 	configure_byobu
