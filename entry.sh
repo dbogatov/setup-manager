@@ -8,6 +8,7 @@ source users.sh
 source byobu.sh
 source docker.sh
 source nginx.sh
+source postgres.sh
 
 echo_info "Start setup"
 
@@ -37,6 +38,8 @@ inc_indent
 	# install_docker
 
 	setup_nginx
+
+	setup_postgres
 
 dec_indent
 
