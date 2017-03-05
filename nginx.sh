@@ -10,7 +10,7 @@ function setup_nginx {
 	cd tmp
 	curl --header "PRIVATE-TOKEN: $TOKEN" https://git.dbogatov.org/api/v4/projects/15/builds/artifacts/master/download?job=artifacts > nginx.zip
 	unzip nginx.zip
-	cp -r dist/* /etc/nginx/
+	sudo cp -r dist/* /etc/nginx/
 	cd ..
 	rm -rf tmp
 
