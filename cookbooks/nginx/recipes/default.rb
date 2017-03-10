@@ -12,7 +12,7 @@ include_recipe "apt"
 package 'nginx' do
   action :install
 end
-n
+
 service 'nginx' do
   action [:enable, :start]
 end
