@@ -10,32 +10,41 @@
 include_recipe "letsencrypt"
 
 domains = Dir["/etc/nginx/sites-available/*"].map { |path| File.basename(path) }
+wwws = []
+domains.each do |domain|
+	wwws.unshift("www.#{domain}") if domain.count(".") == 1
+end
+domains += wwws
+
 interaction = "--non-interactive"
 tos = "--agree-tos"
 email = "--email #{node['letsencrypt']['email']}"
-method = "-a webroot"
+method = "--standalone"
 
-Dir["/etc/nginx/sites-enabled/*"].each do |site|
-	link site do
-		action [:delete]
-	end
+service "nginx" do
+	action [:stop]
 end
 
-link "/etc/nginx/sites-enabled/all-sites-letsencrypt" do
-	to "/etc/nginx/sites-available/all-sites-letsencrypt"
+domains.each do |fqdn|
+	next if Dir.exist?("/etc/letsencrypt/live/#{fqdn}")
+
+	dns_manager "Set DNS record for #{fqdn}" do
+		fqdn fqdn
+		action :create
+	end
+
+	execute fqdn do
+		command "letsencrypt certonly #{interaction} #{tos} #{email} #{method} -d #{fqdn}"
+		ignore_failure true
+	end
+
+	# dns_manager "Revert DNS record for #{fqdn}" do
+	# 	fqdn fqdn
+	# 	ip "107.170.3.128"
+	# 	action :create
+	# end
 end
 
 service "nginx" do
-	action [:restart]
+	action [:start]
 end
-
-dns_manager "Set DNS record for pma.dbogatov.org" do
-	fqdn "pma.dbogatov.org"
-	action :create
-end
-
-# domains.each do |domain|
-# 	execute domain do
-# 		command "letsencrypt certonly #{interaction} #{tos} #{email} #{method} --webroot-path=#{node['letsencrypt']['webroot']} -d #{domain}"
-# 	end
-# end

@@ -25,11 +25,11 @@ bash "Download NGINX artifacts" do
 			#{node['url']['nginx-artifacts']} \
 			> nginx.zip
 		unzip nginx.zip > /dev/null
+		rm /etc/nginx/nginx.conf /etc/nginx/sites-available/* /etc/nginx/snippets/* /etc/nginx/mime.types
 		cp -r dist/* /etc/nginx/
 		cd .. && rm -rf nginx
     EOH
 	user "root"
-	# not_if { ::File.exist?(extract_path) }
 end
 
 service "nginx" do
