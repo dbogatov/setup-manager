@@ -43,6 +43,10 @@ domains.each do |fqdn|
 		ip "107.170.3.128"
 		action :create
 	end
+
+	link "/etc/nginx/sites-available/#{fqdn}" do
+		to "/etc/nginx/sites-enabled/#{fqdn}"
+	end
 end
 
 service "nginx" do
