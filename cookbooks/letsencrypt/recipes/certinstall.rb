@@ -45,7 +45,9 @@ domains.each do |fqdn|
 	end
 end
 
-Dir["/etc/nginx/sites-available/*"].each do |fqdn|
+Dir["/etc/nginx/sites-available/*"]
+	.map { |path| File.basename(path) }
+	.each do |fqdn|
 	link "/etc/nginx/sites-enabled/#{fqdn}" do
 		to "/etc/nginx/sites-available/#{fqdn}"
 	end
