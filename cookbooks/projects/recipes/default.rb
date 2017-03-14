@@ -14,3 +14,10 @@ end
 docker_service_manager "default" do
 	action :start
 end
+
+# Login to private registry
+docker_registry registry do
+	username username
+	password data_bag_item("gitlab", "token")["value"]
+	email "dmytro@dbogatov.org"
+end

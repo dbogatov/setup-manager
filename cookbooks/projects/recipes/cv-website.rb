@@ -5,13 +5,6 @@ username = "dbogatov"
 project = "cv-website"
 image = "#{registry}/#{username}/#{project}"
 
-# Login to private registry
-docker_registry registry do
-	username username
-	password data_bag_item("gitlab", "token")["value"]
-	email "dmytro@dbogatov.org"
-end
-
 # Pull tagged image
 docker_image image do
 	action :pull
