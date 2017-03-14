@@ -9,7 +9,7 @@ action :create do
 		command "curl -s -X DELETE --user #{email}:#{password} #{node['dns']['server']}/admin/dns/custom/#{fqdn}"
 	end
 
-	execute "Create DNS A record for #{fqdn} with #{ip.empty? ? 'the default value' : 'value #{ip}'}" do
+	execute "Create DNS A record for #{fqdn} with #{ip.empty? ? 'the default value' : 'value' + ip}" do
 		command "curl -s -X PUT #{ip.empty? ? '' : '-d ' + ip} --user #{email}:#{password} #{node['dns']['server']}/admin/dns/custom/#{fqdn}"
 	end
 end

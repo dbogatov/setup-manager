@@ -12,7 +12,7 @@ include_recipe "letsencrypt"
 domains = Dir["/etc/nginx/sites-available/*"].map { |path| File.basename(path) }
 wwws = []
 domains.each do |domain|
-	wwws.unshift("www.#{domain}") if domain.count(".") == 1
+	wwws.unshift("www.#{domain}") if domain =~ /^[^\.]+\.(com|org|net)\.?.*$/
 end
 domains += wwws
 
@@ -38,11 +38,11 @@ domains.each do |fqdn|
 		ignore_failure true
 	end
 
-	# dns_manager "Revert DNS record for #{fqdn}" do
-	# 	fqdn fqdn
-	# 	ip "107.170.3.128"
-	# 	action :create
-	# end
+	dns_manager "Revert DNS record for #{fqdn}" do
+		fqdn fqdn
+		ip "107.170.3.128"
+		action :create
+	end
 end
 
 service "nginx" do
