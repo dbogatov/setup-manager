@@ -16,6 +16,7 @@ docker_service_manager "default" do
 end
 
 registry = "registry.dbogatov.org"
+username = "dbogatov"
 
 # Login to private registry
 docker_registry registry do
