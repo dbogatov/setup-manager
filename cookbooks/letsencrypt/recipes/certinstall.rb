@@ -53,6 +53,11 @@ Dir["/etc/nginx/sites-available/*"]
 	end
 end
 
+execute "Generating dhparam" do
+	command "openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048"
+	not_if { ::File.exist?("/etc/ssl/certs/dhparam.pem") }
+end
+
 service "nginx" do
 	action [:start]
 end

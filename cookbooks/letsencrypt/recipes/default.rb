@@ -7,8 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package "letsencrypt" do
-	action :install
+%w(letsencrypt openssl).each do |package|
+	package package do
+		action :install
+	end
 end
 
 directory node["letsencrypt"]["webroot"] do
