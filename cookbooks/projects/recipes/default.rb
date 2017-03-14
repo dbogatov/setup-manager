@@ -15,6 +15,8 @@ docker_service_manager "default" do
 	action :start
 end
 
+registry = "registry.dbogatov.org"
+
 # Login to private registry
 docker_registry registry do
 	username username
