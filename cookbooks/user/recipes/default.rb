@@ -19,6 +19,6 @@ end
 
 user "Create admin user" do
 	password "lolt" #`openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
-	username "lolt"#node["user"]["me"]
+	username node["user"]["me"]
 	manage_home true
 end
