@@ -18,7 +18,7 @@ package "openssl" do
 end
 
 user "Create admin user" do
-	password `openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
+	password "lolt" #`openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
 	username "lolt"#node["user"]["me"]
 	manage_home true
 end
