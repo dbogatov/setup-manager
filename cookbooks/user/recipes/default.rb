@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "postgresql::server"
+
 gem_package "ruby-shadow" do
 	action :install
 end
