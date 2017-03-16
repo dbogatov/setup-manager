@@ -17,9 +17,7 @@ package "openssl" do
 	action :install
 end
 
-password = `openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
-
-
+password = `openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`.delete("\n")
 
 user "Create admin user with passwd #{password}" do
 	password "$1$JJsvHslV$szsCjVEroftprNn4JHtDi" # `openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
