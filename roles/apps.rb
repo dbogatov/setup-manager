@@ -1,4 +1,4 @@
-name "master"
+name "apps"
 description "Role for the all-in-one ultimate server"
 # List of recipes and roles to apply. Requires Chef 0.8, earlier versions use 'recipes()'.
 run_list "recipe[nginx::deploy]", "recipe[letsencrypt::certinstall]", "recipe[letsencrypt::certrenew]", "recipe[projects::cv-website]", "recipe[projects::inara-cv]"
