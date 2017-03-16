@@ -17,7 +17,11 @@ package "openssl" do
 	action :install
 end
 
-user "Create admin user" do
+password = `openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
+
+
+
+user "Create admin user with passwd #{password}" do
 	password "$1$JJsvHslV$szsCjVEroftprNn4JHtDi" # `openssl passwd -1 #{data_bag_item("user", "admin")["password"]}`
 	username node["user"]["me"]
 	manage_home true
