@@ -36,5 +36,6 @@ action :run do
 		]
 		volumes "#{directory}:/var/lib/postgresql/data"
 		restart_policy "on-failure"
+		kill_after 20
 	end
 end

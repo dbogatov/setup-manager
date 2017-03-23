@@ -28,7 +28,7 @@ end
 domains.each do |fqdn|
 	next if Dir.exist?("/etc/letsencrypt/live/#{fqdn}")
 
-	dns "Set DNS record for #{fqdn}" do
+	ultimate_dns "Set DNS record for #{fqdn}" do
 		fqdn fqdn
 		action :create
 	end
@@ -38,7 +38,7 @@ domains.each do |fqdn|
 		ignore_failure true
 	end
 
-	dns "Revert DNS record for #{fqdn}" do
+	ultimate_dns "Revert DNS record for #{fqdn}" do
 		fqdn fqdn
 		ip "107.170.3.128"
 		action :create
