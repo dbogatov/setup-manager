@@ -1,10 +1,12 @@
 property :project, String, required: true
 
-dbname = Chef::EncryptedDataBagItem.load("databases", project)["dbname"]
-dbuser = Chef::EncryptedDataBagItem.load("databases", project)["dbuser"]
-dbpassword = Chef::EncryptedDataBagItem.load("databases", project)["dbpassword"]
 
 action :run do
+
+	dbname = Chef::EncryptedDataBagItem.load("databases", project)["dbname"]
+	dbuser = Chef::EncryptedDataBagItem.load("databases", project)["dbuser"]
+	dbpassword = Chef::EncryptedDataBagItem.load("databases", project)["dbpassword"]
+
 	include_recipe "ultimate::docker-login"
 
 	image = "postgres"
