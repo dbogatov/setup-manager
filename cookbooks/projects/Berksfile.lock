@@ -1,9 +1,0 @@
-DEPENDENCIES
-  projects
-    path: .
-    metadata: true
-
-GRAPH
-  docker (2.15.2)
-  projects (0.1.0)
-    docker (~> 2.0)
