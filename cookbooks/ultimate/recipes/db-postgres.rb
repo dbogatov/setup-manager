@@ -13,7 +13,7 @@ end
 docker_container "pg_shevastream" do
 	repo image
 	tag tag
-	port "5432:5432"
+	port "5433:5432"
 	env [
 		"POSTGRES_DB=#{data_bag_item('databases', 'shevastream')['dbname']}",
 		"POSTGRES_USER=#{data_bag_item('databases', 'shevastream')['dbuser']}",
