@@ -2,6 +2,10 @@ include_recipe "ultimate::letsencrypt-install"
 
 method = "--standalone"
 
+package "nginx" do
+	action :install
+end
+
 service "nginx" do
 	action :stop
 end

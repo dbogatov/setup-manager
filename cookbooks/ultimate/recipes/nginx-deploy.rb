@@ -34,5 +34,4 @@ end
 
 service "nginx" do
 	action [:restart]
-	ignore_failure true
 end
