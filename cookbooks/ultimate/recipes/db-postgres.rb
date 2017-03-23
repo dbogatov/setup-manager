@@ -10,7 +10,7 @@ docker_image image do
 end
 
 # Run container
-docker_container "PostgreSQL for ShevaStream" do
+docker_container "pg_shevastream" do
 	repo image
 	tag tag
 	port "5432:5432"
