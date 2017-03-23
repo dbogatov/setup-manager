@@ -5,11 +5,12 @@ tag = "alpine"
 
 # Pull tagged image
 docker_image image do
-	action :pull
+	repo image
+	tag tag
 end
 
 # Run container
-docker_container "PostgreSQL db for ShevaStream" do
+docker_container "PostgreSQL for ShevaStream" do
 	repo image
 	tag tag
 	port "5432:5432"
