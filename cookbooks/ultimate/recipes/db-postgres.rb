@@ -1,5 +1,10 @@
 
-ultimate_postgres "Setup DB for Shevastream" do
-	project "shevastream"
-	action :run
+
+%w(shevastream mywebsite).each do |project|
+
+	ultimate_postgres "Setup DB for #{project}" do
+		project project
+		action :run
+	end
+
 end
