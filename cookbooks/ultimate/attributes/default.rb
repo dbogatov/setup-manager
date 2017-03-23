@@ -11,3 +11,7 @@ default["letsencrypt"]["email"] = "dmytro@dbogatov.org"
 
 # dns
 default["dns"]["server"] = "https://box.dbogatov.org"
+
+# databases
+default["databases"]["shevastream"]["port"] = 5400
+default["databases"]["mywebsite"]["port"] = 5401
