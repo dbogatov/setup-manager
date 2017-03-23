@@ -1,5 +1,5 @@
 
-postgres "Setup DB for Shevastream" do
+ultimate_postgres "Setup DB for Shevastream" do
 	project "shevastream"
 	action :run
 end
