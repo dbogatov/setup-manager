@@ -20,7 +20,7 @@ docker_container "pg_shevastream" do
 		"POSTGRES_PASSWORD=#{data_bag_item('databases', 'shevastream')['dbpassword']}"
 	]
 	volumes [
-		"/var/lib/postgresql/data:/root/postgres/lol"
+		"/root/postgres/lol:/var/lib/postgresql/data"
 	]
 	restart_policy "on-failure"
 end
