@@ -3,7 +3,7 @@ default["user"]["me"] = "dbogatov"
 default["authorization"]["sudo"]["users"] = [default["user"]["me"]]
 
 # nginx
-default["url"]["nginx-artifacts"] = "https://git.dbogatov.org/api/v4/projects/15/builds/artifacts/master/download?job=test"
+default["url"]["nginx-artifacts"] = "https://git.dbogatov.org/api/v4/projects/15/jobs/artifacts/master/download?job=test"
 
 # letsencrypt
 default["letsencrypt"]["webroot"] = "/srv/letsencrypt/"
