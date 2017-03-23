@@ -21,6 +21,7 @@ action :run do
 	directory directory do
 		owner "root"
 		action :create
+		recursive true
 	end
 
 	# Run container
