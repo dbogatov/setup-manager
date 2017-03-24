@@ -42,8 +42,8 @@ end
 keys = data_bag_item("ultimate", "ultimate")["sshkeys"]
 
 directory "#{home}/.ssh" do
-	owner "root"
-	group "root"
+	owner user
+	group user
 	action :create
 	recursive true
 end
@@ -51,8 +51,8 @@ end
 file "#{home}/.ssh/authorized_keys" do
 	content keys.join("\n") + "\n"
 	mode "0600"
-	owner "root"
-	group "root"
+	owner user
+	group user
 end
 
 cookbook_file "/etc/ssh/sshd_config" do
