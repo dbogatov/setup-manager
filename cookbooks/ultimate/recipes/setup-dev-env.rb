@@ -32,6 +32,7 @@ cookbook_file "#{home}/.byobu/status" do
 end
 
 execute "Enable byobu" do
+    cwd home
     user user
     command "byobu-enable"
 end
