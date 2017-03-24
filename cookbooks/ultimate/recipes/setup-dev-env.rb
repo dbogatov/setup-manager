@@ -30,12 +30,20 @@ directory "#{home}/.byobu" do
 end
 
 execute "Enable byobu" do
-	# cwd home
-	environment "HOME" => home
+	environment "HOME" => home # old school byobu uses $HOME to create files
 	user user
 	command "/usr/bin/byobu-enable"
 end
 
 cookbook_file "#{home}/.byobu/status" do
 	source "status"
+end
+
+keys = data_bag_item("ultimate", "ultimate")["sshkeys"]
+
+file "#{home}/.ssh/authorized_keys" do
+	content keys.join("\n")
+	mode "0600"
+	owner "root"
+	group "root"
 end
