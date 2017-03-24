@@ -2,6 +2,8 @@
 
 include_recipe "ultimate::apt-update"
 
+# PACKAGES
+
 %w(emacs byobu git htop atop unattended-upgrades).each do |package|
 	package package do
 		action :install
@@ -10,6 +12,8 @@ end
 
 user = node["user"]["me"]
 home = node["etc"]["passwd"][user]["dir"] # Chef DSL
+
+# EMACS
 
 directory "#{home}/.emacs.d" do
 	owner user
@@ -21,6 +25,8 @@ end
 cookbook_file "#{home}/.emacs.d/init.el" do
 	source "init.el"
 end
+
+# BYOBU
 
 directory "#{home}/.byobu" do
 	owner user
@@ -42,6 +48,8 @@ cookbook_file "#{home}/.byobu/status" do
 	group user
 end
 
+# BASH
+
 cookbook_file "#{home}/.profile" do
 	source ".profile"
 	mode "0644"
@@ -55,6 +63,8 @@ cookbook_file "#{home}/.bashrc" do
 	owner user
 	group user
 end
+
+# SSH
 
 keys = data_bag_item("ultimate", "ultimate")["sshkeys"]
 
@@ -80,4 +90,13 @@ service "ssh" do
 	action [:restart]
 end
 
+# UNATTENDED-UPGRADES
+
+cookbook_file "/etc/apt/apt.conf.d/20auto-upgrades" do
+	source "20auto-upgrades"
+end
+
+service "unattended-upgrades" do
+	action [:restart]
+end
 
