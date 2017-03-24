@@ -27,12 +27,13 @@ directory "#{home}/.byobu" do
     recursive true
 end
 
+execute "Enable byobu" do
+    cwd home
+    user user
+    command "ls -la"
+end
+
 cookbook_file "#{home}/.byobu/status" do
     source "status"
 end
 
-execute "Enable byobu" do
-    cwd home
-    user user
-    command "byobu-enable"
-end
