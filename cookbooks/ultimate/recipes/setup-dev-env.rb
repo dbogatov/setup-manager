@@ -49,7 +49,7 @@ directory "#{home}/.ssh" do
 end
 
 file "#{home}/.ssh/authorized_keys" do
-	content keys.join("\n")
+	content keys.join("\n") + "\n"
 	mode "0600"
 	owner "root"
 	group "root"
