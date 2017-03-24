@@ -54,3 +54,11 @@ file "#{home}/.ssh/authorized_keys" do
 	owner "root"
 	group "root"
 end
+
+cookbook_file "/etc/ssh/sshd_config" do
+	source "sshd_config"
+end
+
+service "ssh" do
+	action [:restart]
+end
