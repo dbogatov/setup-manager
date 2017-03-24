@@ -6,8 +6,8 @@ run_list [
 	"recipe[ultimate::letsencrypt-provision]",
 	"recipe[ultimate::letsencrypt-renew]",
 	"recipe[ultimate::nginx-deploy]",
-	# "recipe[ultimate::cv-website]",
-	# "recipe[ultimate::inara-cv]",
+	"recipe[ultimate::cv-website]",
+	"recipe[ultimate::inara-cv]",
 ]
 # Attributes applied if the node doesn't have it set already.
 # default_attributes()
