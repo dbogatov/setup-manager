@@ -37,6 +37,23 @@ end
 
 cookbook_file "#{home}/.byobu/status" do
 	source "status"
+	mode "0644"
+	owner user
+	group user
+end
+
+cookbook_file "#{home}/.profile" do
+	source ".profile"
+	mode "0644"
+	owner user
+	group user
+end
+
+cookbook_file "#{home}/.bashrc" do
+	source ".bashrc"
+	mode "0644"
+	owner user
+	group user
 end
 
 keys = data_bag_item("ultimate", "ultimate")["sshkeys"]
