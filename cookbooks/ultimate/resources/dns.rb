@@ -1,8 +1,8 @@
 property :ip, String, default: ""
 property :fqdn, String, default: ""
 
-email = Chef::EncryptedDataBagItem.load("dns", "credentials")["email"]
-password = Chef::EncryptedDataBagItem.load("dns", "credentials")["password"]
+email = Chef::EncryptedDataBagItem.load("ultimate", "ultimate")["dns"]["email"]
+password = Chef::EncryptedDataBagItem.load("ultimate", "ultimate")["dns"]["password"]
 
 action :create do
 	execute "Remove DNS A record for #{fqdn}" do

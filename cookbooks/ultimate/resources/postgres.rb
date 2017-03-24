@@ -3,9 +3,9 @@ property :project, String, required: true
 
 action :run do
 
-	dbname = Chef::EncryptedDataBagItem.load("databases", project)["dbname"]
-	dbuser = Chef::EncryptedDataBagItem.load("databases", project)["dbuser"]
-	dbpassword = Chef::EncryptedDataBagItem.load("databases", project)["dbpassword"]
+	dbname = Chef::EncryptedDataBagItem.load("ultimate", "ultimate")[project]["dbname"]
+	dbuser = Chef::EncryptedDataBagItem.load("ultimate", "ultimate")[project]["dbuser"]
+	dbpassword = Chef::EncryptedDataBagItem.load("ultimate", "ultimate")[project]["dbpassword"]
 
 	include_recipe "ultimate::docker-login"
 

@@ -21,7 +21,7 @@ bash "Download NGINX artifacts" do
 		rm -rf nginx && mkdir -p nginx && cd nginx
 		curl \
 			-s \
-			--header "PRIVATE-TOKEN: #{data_bag_item('gitlab', 'token')['value']}" \
+			--header "PRIVATE-TOKEN: #{data_bag_item('ultimate', 'ultimate')['gitlab_token']}" \
 			#{node['url']['nginx-artifacts']} \
 			> nginx.zip
 		unzip nginx.zip > /dev/null
