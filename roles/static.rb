@@ -2,7 +2,6 @@ name "static"
 description "Role for the databases, VPNs and backups"
 # List of recipes and roles to apply. Requires Chef 0.8, earlier versions use 'recipes()'.
 run_list [
-	"recipe[ultimate::setup-user]",
 	"recipe[ultimate::databases]",
 ]
 # Attributes applied if the node doesn't have it set already.

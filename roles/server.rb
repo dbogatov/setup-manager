@@ -1,12 +1,9 @@
-name "apps"
-description "Role for the all-in-one ultimate server"
+name "server"
+description "Role for all servers to be created."
 # List of recipes and roles to apply. Requires Chef 0.8, earlier versions use 'recipes()'.
 run_list [
-	"recipe[ultimate::letsencrypt-provision]",
-	"recipe[ultimate::letsencrypt-renew]",
-	"recipe[ultimate::nginx-deploy]",
-	"recipe[ultimate::cv-website]",
-	"recipe[ultimate::inara-cv]",
+	"recipe[ultimate::setup-user]",
+	"recipe[ultimate::setup-dev-env]",
 ]
 # Attributes applied if the node doesn't have it set already.
 # default_attributes()

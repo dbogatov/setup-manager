@@ -22,6 +22,7 @@ tos = "--agree-tos"
 email = "--email #{node['letsencrypt']['email']}"
 method = "--standalone"
 
+include_recipe "ultimate::apt-update"
 
 package "nginx" do
 	action :install

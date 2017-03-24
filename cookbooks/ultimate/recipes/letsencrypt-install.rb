@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "ultimate::apt-update"
+
 %w(letsencrypt openssl).each do |package|
 	package package do
 		action :install

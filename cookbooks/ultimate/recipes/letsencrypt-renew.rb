@@ -2,6 +2,8 @@ include_recipe "ultimate::letsencrypt-install"
 
 method = "--standalone"
 
+include_recipe "ultimate::apt-update"
+
 package "nginx" do
 	action :install
 end
