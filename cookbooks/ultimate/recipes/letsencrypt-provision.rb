@@ -9,6 +9,7 @@
 
 include_recipe "ultimate::letsencrypt-install"
 
+
 domains = Dir["/etc/nginx/sites-available/*"].map { |path| File.basename(path) }
 wwws = []
 domains.each do |domain|
@@ -20,6 +21,11 @@ interaction = "--non-interactive"
 tos = "--agree-tos"
 email = "--email #{node['letsencrypt']['email']}"
 method = "--standalone"
+
+
+package "nginx" do
+	action :install
+end
 
 service "nginx" do
 	action [:stop]
