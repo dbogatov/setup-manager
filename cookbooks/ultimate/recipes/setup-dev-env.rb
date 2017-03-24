@@ -2,7 +2,7 @@
 
 include_recipe "ultimate::apt-update"
 
-%w(emacs byobu git htop atop).each do |package|
+%w(emacs byobu git htop atop unattended-upgrades).each do |package|
 	package package do
 		action :install
 	end
@@ -79,3 +79,5 @@ end
 service "ssh" do
 	action [:restart]
 end
+
+
