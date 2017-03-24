@@ -21,4 +21,5 @@ user "Create admin user #{node['user']['me']}" do
 	password `openssl passwd -1 #{data_bag_item("ultimate", "ultimate")["admin_password"]}`.delete("\n")
 	username node["user"]["me"]
 	manage_home true
+	shell "/bin/bash"
 end
