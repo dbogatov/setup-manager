@@ -13,6 +13,7 @@ home = node["etc"]["passwd"][user]["dir"] # Chef DSL
 
 directory "#{home}/.emacs.d" do
     owner user
+    group user
     action :create
     recursive true
 end
@@ -23,6 +24,7 @@ end
 
 directory "#{home}/.byobu" do
     owner user
+    group user
     action :create
     recursive true
 end
@@ -30,7 +32,7 @@ end
 execute "Enable byobu" do
     cwd home
     user user
-    command "ls -la"
+    command "/usr/bin/byobu-enable"
 end
 
 cookbook_file "#{home}/.byobu/status" do
