@@ -2,7 +2,7 @@
 
 include_recipe "ultimate::apt-update"
 
-%w(emacs byobu git).each do |package|
+%w(emacs byobu git htop atop).each do |package|
 	package package do
 		action :install
 	end
