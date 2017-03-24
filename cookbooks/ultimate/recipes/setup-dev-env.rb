@@ -41,6 +41,13 @@ end
 
 keys = data_bag_item("ultimate", "ultimate")["sshkeys"]
 
+directory "#{home}/.ssh" do
+	owner "root"
+	group "root"
+	action :create
+	recursive true
+end
+
 file "#{home}/.ssh/authorized_keys" do
 	content keys.join("\n")
 	mode "0600"
