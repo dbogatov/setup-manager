@@ -9,5 +9,6 @@ deploy:
   artifacts:
     paths:
     - websites.yml
+    - manager.sh
   tags:
   - docker
