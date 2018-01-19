@@ -1,7 +1,8 @@
 # Setup Manager
 
-```
-# download manager script
+* [Create docker pull secret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
-curl -L -o manager.sh https://git.dbogatov.org/dbogatov/Setup-Manager/-/jobs/artifacts/master/raw/manager.sh?job=deploy
 ```
+kubectl create secret docker-registry regsecret --docker-server=registry.dbogatov.org --docker-username=dbogatov --docker-password=TOKEN --docker-email=dmytro@dbogatov.org
+```
+

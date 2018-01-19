@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1 
+kind: Deployment 
+metadata:
+  name: nigmatullina-org
+  namespace: websites 
+  labels:
+    application: nigmatullina-org
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      application: nigmatullina-org
+  template:
+    metadata:
+      labels:
+        application: nigmatullina-org
+    spec:
+      containers:
+        - name: nigmatullina-org
+          image: registry.dbogatov.org/dbogatov/inara-cv:latest
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regsecret

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nigmatullina-org
+  namespace: websites
+  annotations:
+    kubernetes.io/ingress.class: "public"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+  - host: "inara.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nigmatullina-org
+          servicePort: 80
