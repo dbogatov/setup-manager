@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nigmatullina-org 
+  name: __NAME__ 
   namespace: websites 
   labels:
-    application: nigmatullina-org
+    application: __NAME__
 spec:
   type: NodePort
   selector:
-    application: nigmatullina-org
+    application: __NAME__
   ports:
   - port: 80
     targetPort: 80 

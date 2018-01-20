@@ -1,17 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nigmatullina-org
+  name: __NAME__
   namespace: websites
   annotations:
     kubernetes.io/ingress.class: "public"
     ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   rules:
-  - host: "nigmatullina-org.cluster.dbogatov.org"
+  - host: "__NAME__.cluster.dbogatov.org"
     http:
       paths:
       - path: /
         backend:
-          serviceName: nigmatullina-org
+          serviceName: __NAME__
           servicePort: 80

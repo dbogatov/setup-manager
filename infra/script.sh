@@ -8,6 +8,14 @@ shopt -s globstar
 cd "${0%/*}"
 CWD=$(pwd)
 
+# Checks
+
+if [ -z "$1" ]
+then
+	echo "The first argument has to be a registry login password"
+	exit 1;
+fi
+
 # Initiate cluster
 
 echo "Initializing cluster on DigitalOcean"
@@ -84,8 +92,22 @@ kubectl apply -R -f addons/nginx-ingress/digital-ocean/ || true
 kubectl apply -R -f addons/nginx-ingress/digital-ocean/
 sleep 5
 
-echo "Done!"
+echo "Deploying the websites"
 
-# cd ..
-# kubectl apply -f services/namespace.yaml
-# kubectl apply -R -f services/
+cd $CWD
+
+echo "Generating config files"
+
+./build-services.sh
+
+kubectl apply -f services/namespace.yaml
+
+echo "Deploying the registry secret"
+
+kubectl --namespace=websites create secret docker-registry regsecret --docker-server=registry.dbogatov.org --docker-username=dbogatov --docker-password=$1 --docker-email=dmytro@dbogatov.org
+
+echo "Applying config files"
+
+kubectl apply -R -f services/
+
+echo "Done!"
