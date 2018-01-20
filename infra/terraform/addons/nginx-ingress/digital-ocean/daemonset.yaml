@@ -24,7 +24,6 @@ spec:
             - /nginx-ingress-controller
             - --default-backend-service=$(POD_NAMESPACE)/default-backend
             - --ingress-class=public
-            - --default-ssl-certificate=$(POD_NAMESPACE)/tls-certificate
           # use downward API
           env:
             - name: POD_NAME

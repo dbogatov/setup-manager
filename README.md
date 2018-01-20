@@ -1,8 +1,7 @@
 # Setup Manager
 
+* Follow [this](https://typhoon.psdn.io/digital-ocean/) to create a working Kubernetes cluster.
 * [Create docker pull secret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
-
-```
-kubectl create secret docker-registry regsecret --docker-server=registry.dbogatov.org --docker-username=dbogatov --docker-password=TOKEN --docker-email=dmytro@dbogatov.org
-```
-
+* Use [this](https://typhoon.psdn.io/addons/prometheus/) to set up Prometheus-Graphana.
+* Use [this](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) to get dashboard token.
+* Use [infra/script.sh](./infra/script.sh) to complete setup.
