@@ -24,6 +24,8 @@ spec:
             - /nginx-ingress-controller
             - --default-backend-service=$(POD_NAMESPACE)/default-backend
             - --ingress-class=public
+            - --default-ssl-certificate=default/lets-encrypt
+            - --annotations-prefix=nginx.ingress.kubernetes.io
           # use downward API
           env:
             - name: POD_NAME
