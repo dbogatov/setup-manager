@@ -73,11 +73,23 @@ echo "Waiting 30 secs..."
 
 sleep 30
 
+cd $CWD
+
+echo "Generating config files"
+
+./build-services.sh
+
+kubectl apply -f services/namespace.yaml
+
+echo "Deploying the registry secret"
+
+kubectl --namespace=websites create secret docker-registry regsecret --docker-server=registry.dbogatov.org --docker-username=dbogatov --docker-password=$DOCKERPASS --docker-email=dmytro@dbogatov.org
+
 # Save SSL certs
 
 echo "Saving SSL certs"
 
-kubectl create secret tls lets-encrypt --key $KEYPATH --cert $CERTPATH
+kubectl create --namespace=websites secret tls lets-encrypt --key $KEYPATH --cert $CERTPATH
 
 # Deploy addons
 
@@ -114,16 +126,6 @@ kubectl apply -R -f addons/nginx-ingress/digital-ocean/
 echo "Deploying the websites"
 
 cd $CWD
-
-echo "Generating config files"
-
-./build-services.sh
-
-kubectl apply -f services/namespace.yaml
-
-echo "Deploying the registry secret"
-
-kubectl --namespace=websites create secret docker-registry regsecret --docker-server=registry.dbogatov.org --docker-username=dbogatov --docker-password=$DOCKERPASS --docker-email=dmytro@dbogatov.org
 
 echo "Applying config files"
 
