@@ -19,7 +19,7 @@ do
 
 	cp sources/service/{ingress,service,deployment}.yaml services/$service
 
-	sed -i '' -e "s/__NAME__/$service/g" services/$service/{ingress,service,deployment}.yaml
+	sed -i '' -e "s#__NAME__#$service#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i '' -e "s#__IMAGE__#${SERVICES[${service}]}#g" services/$service/{ingress,service,deployment}.yaml
 done
 

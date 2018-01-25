@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  X-Developer: "Dmytro Bogatov"
+kind: ConfigMap
+metadata:
+  name: custom-headers
+  namespace: ingress

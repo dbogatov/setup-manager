@@ -129,6 +129,8 @@ cd $CWD
 
 echo "Applying config files"
 
+kubectl apply -R -f sources/nginx/
+
 kubectl apply -R -f services/
 
 echo "Done!"
