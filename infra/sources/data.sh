@@ -7,6 +7,7 @@ SERVICES["blog-dbogatov-org"]="registry.dbogatov.org/dbogatov/my-blog:latest"
 SERVICES["legacy-dbogatov-org"]="dbogatov/legacy:latest"
 SERVICES["socialimps-dbogatov-org"]="registry.dbogatov.org/dbogatov/cs-3043-group-project:latest"
 SERVICES["push-dbogatov-org"]="registry.dbogatov.org/dbogatov/pushexpress:latest"
+SERVICES["mail-dbogatov-org"]="registry.dbogatov.org/dbogatov/nginx-proxies/mail-dbogatov-org:latest"
 
 SERVICES["nigmatullina-org"]="registry.dbogatov.org/dbogatov/inara-cv:latest"
 
@@ -22,6 +23,8 @@ SERVICES["lp-visasupport-kiev-ua"]="registry.dbogatov.org/dbogatov/visasupport-w
 SERVICES["zima-visasupport-com-ua"]="registry.dbogatov.org/dbogatov/visasupport-websites/static/zima-visasupport-com-ua:latest"
 SERVICES["travelus-com-ua"]="registry.dbogatov.org/dbogatov/visasupport-websites/static/travelus-com-ua:latest"
 SERVICES["visajapan-com-ua"]="registry.dbogatov.org/dbogatov/visasupport-websites/static/visajapan-com-ua:latest"
+
+SERVICES["moon-travel-com-ua"]="registry.dbogatov.org/dbogatov/nginx-proxies/moon-travel-com-ua:latest"
 
 SERVICES["vleskniga-com"]="registry.dbogatov.org/slokot/vleskniga:latest"
 SERVICES["veles-russia-com"]="registry.dbogatov.org/slokot/veles-russia:latest"
