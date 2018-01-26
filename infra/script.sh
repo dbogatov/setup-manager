@@ -33,10 +33,17 @@ CERTPATH=$3
 
 echo "Initializing cluster on DigitalOcean"
 
+# Add identity
+ssh-add ~/.ssh/id_rsa
+
 cd $CWD/terraform/clusters/
 terraform destroy -force
 terraform init
 terraform apply -auto-approve
+
+echo "Waiting 30 secs..."
+
+sleep 30
 
 # Add SWAP to master
 
@@ -137,4 +144,4 @@ echo "Done!"
 
 echo "Here is the dashboard login token"
 
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}') | tail -n1
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
