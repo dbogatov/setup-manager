@@ -11,23 +11,21 @@ CWD=$(pwd)
 # Checks
 
 usage () {
-	printf "usage: ./$0 <pswd> <keyPath> <certPath>\n"
+	printf "usage: ./$0 <pswd> <certDirPath>\n"
 	printf "where\n"
 	printf "\t pswd - docker registry password for host registry.dbogatov.org and user dbogatov\n"
-	printf "\t keyPath - absolute path to SSL key file (may be .pem)\n"
-	printf "\t certPath - absolute path to SSL cert file (may be .pem)\n"
+	printf "\t certDirPath - absolute path to directory with SSL cert (certificate.crt) and key (certificate.key) file\n"
 
 	exit 1;
 }
 
-if ! [ $# -eq 3 ]
+if ! [ $# -eq 2]
 then
 	usage
 fi
 
 DOCKERPASS=$1
-KEYPATH=$2
-CERTPATH=$3
+CERTDIRPATH=$2
 
 # Initiate cluster
 
@@ -96,7 +94,13 @@ kubectl --namespace=websites create secret docker-registry regsecret --docker-se
 
 echo "Saving SSL certs"
 
-kubectl create --namespace=websites secret tls lets-encrypt --key $KEYPATH --cert $CERTPATH
+# for websites
+kubectl create --namespace=websites secret tls lets-encrypt --key --key $CERTDIRPATH/certificate.crt --cert $CERTDIRPATH/certificate.crt --cert $CERTDIRPATH/certificate.key
+
+# for dashboard
+kubectl create --namespace=kube-system secret tls lets-encrypt --key $CERTDIRPATH/certificate.crt --cert $CERTDIRPATH/certificate.key
+kubectl create secret generic kubernetes-dashboard-certs --from-file=$CERTDIRPATH -n kube-system
+
 
 # Deploy addons
 

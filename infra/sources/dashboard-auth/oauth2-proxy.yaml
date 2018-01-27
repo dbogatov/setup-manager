@@ -27,7 +27,7 @@ spec:
         - name: OAUTH2_PROXY_CLIENT_ID
           value: cb72663c50ba6ece30a1
         - name: OAUTH2_PROXY_CLIENT_SECRET
-          value: 5840659123f7c64a791d627856576acee4fad3bbpython -c 'import os,base64; print base64.b64encode(os.urandom(16))'
+          value: 5840659123f7c64a791d627856576acee4fad3bb
         # python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
         - name: OAUTH2_PROXY_COOKIE_SECRET
           value: d3bdOMFUhDVq+aXoHQ7pQQ==
