@@ -146,6 +146,9 @@ kubectl apply -R -f services/
 
 echo "Done!"
 
-echo "Here is the dashboard login token"
+echo "Here is the dashboard login token:"
 
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+DASHBOARD_TOKEN=$(kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}') | grep token: )
+DASHBOARD_TOKEN="${DASHBOARD_TOKEN:7:${#DASHBOARD_TOKEN}}"
+
+echo $DASHBOARD_TOKEN

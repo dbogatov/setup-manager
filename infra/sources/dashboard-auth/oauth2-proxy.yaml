@@ -17,7 +17,10 @@ spec:
     spec:
       containers:
       - args:
-        - --provider=github
+        - --provider=gitlab
+        - -login-url=https://git.dbogatov.org/oauth/authorize
+        - -redeem-url=https://git.dbogatov.org/oauth/token
+        - -validate-url=https://git.dbogatov.org/api/v4/user
         - --email-domain=*
         - --upstream=file:///dev/null
         - --http-address=0.0.0.0:4180
@@ -25,12 +28,12 @@ spec:
         # https://github.com/settings/applications/new
         env:
         - name: OAUTH2_PROXY_CLIENT_ID
-          value: cb72663c50ba6ece30a1
+          value: 558e2988459e785811749d3a1e2ea16f451cdd25bf033d074433c60a16ba878f
         - name: OAUTH2_PROXY_CLIENT_SECRET
-          value: 5840659123f7c64a791d627856576acee4fad3bb
+          value: __OAUTH2_PROXY_CLIENT_SECRET__
         # python -c 'import os,base64; print base64.b64encode(os.urandom(16))'
         - name: OAUTH2_PROXY_COOKIE_SECRET
-          value: d3bdOMFUhDVq+aXoHQ7pQQ==
+          value: __OAUTH2_PROXY_COOKIE_SECRET__
         image: docker.io/colemickens/oauth2_proxy:latest
         imagePullPolicy: Always
         name: oauth2-proxy
