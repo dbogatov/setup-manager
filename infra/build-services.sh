@@ -40,5 +40,6 @@ DASHBOARD_TOKEN=$(kubectl -n kube-system describe secret $(kubectl -n kube-syste
 DASHBOARD_TOKEN="${DASHBOARD_TOKEN:7:${#DASHBOARD_TOKEN}}"
 
 sed -i '' -e "s#__DASHBOARD_TOKEN__#$DASHBOARD_TOKEN#g" services/dashboard-auth/ingreses.yaml
+sed -i '' -e "s#Bearer      #Bearer #g" services/dashboard-auth/ingreses.yaml
 
 echo "Done!"

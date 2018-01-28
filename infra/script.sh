@@ -19,7 +19,7 @@ usage () {
 	exit 1;
 }
 
-if ! [ $# -eq 2]
+if ! [ $# -eq 2 ]
 then
 	usage
 fi
@@ -80,11 +80,7 @@ sleep 30
 
 cd $CWD
 
-echo "Generating config files"
-
-./build-services.sh
-
-kubectl apply -f services/namespace.yaml
+kubectl apply -f sources/namespace.yaml
 
 echo "Deploying the registry secret"
 
@@ -95,12 +91,11 @@ kubectl --namespace=websites create secret docker-registry regsecret --docker-se
 echo "Saving SSL certs"
 
 # for websites
-kubectl create --namespace=websites secret tls lets-encrypt --key --key $CERTDIRPATH/certificate.crt --cert $CERTDIRPATH/certificate.crt --cert $CERTDIRPATH/certificate.key
+kubectl create --namespace=websites secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
 
 # for dashboard
-kubectl create --namespace=kube-system secret tls lets-encrypt --key $CERTDIRPATH/certificate.crt --cert $CERTDIRPATH/certificate.key
+kubectl create --namespace=kube-system secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
 kubectl create secret generic kubernetes-dashboard-certs --from-file=$CERTDIRPATH -n kube-system
-
 
 # Deploy addons
 
@@ -137,6 +132,10 @@ kubectl apply -R -f addons/nginx-ingress/digital-ocean/
 echo "Deploying the websites"
 
 cd $CWD
+
+echo "Generating config files"
+
+./build-services.sh
 
 echo "Applying config files"
 
