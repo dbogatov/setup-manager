@@ -80,7 +80,11 @@ sleep 30
 
 cd $CWD
 
-kubectl apply -f sources/namespace.yaml
+echo "Creating namespaces"
+
+kubectl create namespace websites
+kubectl create namespace monitoring
+kubectl create namespace ingress
 
 echo "Deploying the registry secret"
 
@@ -92,9 +96,9 @@ echo "Saving SSL certs"
 
 # for websites
 kubectl create --namespace=websites secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
-
-# for dashboard
 kubectl create --namespace=kube-system secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
+kubectl create --namespace=monitoring secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
+
 kubectl create secret generic kubernetes-dashboard-certs --from-file=$CERTDIRPATH -n kube-system
 
 # Deploy addons
@@ -113,7 +117,6 @@ kubectl apply -R -f addons/cluo/
 
 echo "Deploying prometheus"
 
-kubectl apply -R -f addons/prometheus/ || true
 kubectl apply -R -f addons/prometheus/
 
 echo "Deploying graphana"
@@ -126,7 +129,6 @@ kubectl apply -R -f addons/heapster/
 
 echo "Deploying NGINX Ingress"
 
-kubectl apply -R -f addons/nginx-ingress/digital-ocean/ || true
 kubectl apply -R -f addons/nginx-ingress/digital-ocean/
 
 echo "Deploying the websites"

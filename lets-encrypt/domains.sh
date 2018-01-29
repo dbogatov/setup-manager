@@ -14,6 +14,14 @@ DOMAINS["vpn.dbogatov.org"]=false
 DOMAINS["apt.dbogatov.org"]=false
 DOMAINS["dashboard.dbogatov.org"]=false
 DOMAINS["cluster.dbogatov.org"]=false
+DOMAINS["grafana.dbogatov.org"]=false
+DOMAINS["git.dbogatov.org"]=false
+DOMAINS["pages.dbogatov.org"]=false
+DOMAINS["mattermost.dbogatov.org"]=false
+DOMAINS["minecraft.dbogatov.org"]=false
+DOMAINS["ci.dbogatov.org"]=false
+DOMAINS["registry.dbogatov.org"]=false
+
 
 DOMAINS["bogatov.kiev.ua"]=true
 DOMAINS["blog.bogatov.kiev.ua"]=false
