@@ -21,6 +21,7 @@ DOMAINS["mattermost.dbogatov.org"]=false
 DOMAINS["minecraft.dbogatov.org"]=false
 DOMAINS["ci.dbogatov.org"]=false
 DOMAINS["registry.dbogatov.org"]=false
+DOMAINS["dns.dbogatov.org"]=false
 
 
 DOMAINS["bogatov.kiev.ua"]=true
