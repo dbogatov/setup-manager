@@ -11,21 +11,23 @@ CWD=$(pwd)
 # Checks
 
 usage () {
-	printf "usage: ./$0 <pswd> <certDirPath>\n"
+	printf "usage: ./$0 <pswd> <certDirPath> <statusSiteConfig>\n"
 	printf "where\n"
 	printf "\t pswd - docker registry password for host registry.dbogatov.org and user dbogatov\n"
 	printf "\t certDirPath - absolute path to directory with SSL cert (certificate.crt) and key (certificate.key) file\n"
+	printf "\t statusSiteConfig - absolute path to appsettings.production.yml file\n"
 
 	exit 1;
 }
 
-if ! [ $# -eq 2 ]
+if ! [ $# -eq 3 ]
 then
 	usage
 fi
 
 DOCKERPASS=$1
 CERTDIRPATH=$2
+STATUSSITECONFIG=$3
 
 # Initiate cluster
 
@@ -80,24 +82,22 @@ sleep 30
 
 cd $CWD
 
-echo "Creating namespaces"
+echo "Creating namespaces and saving SSL certs"
 
-kubectl create namespace websites
-kubectl create namespace monitoring
-kubectl create namespace ingress
+NAMESPACES=("websites" "monitoring" "ingress" "status-site")
+
+for namespace in ${NAMESPACES[@]}
+do
+	kubectl create namespace $namespace
+	kubectl create --namespace=$namespace secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
+done
+
 
 echo "Deploying the registry secret"
 
 kubectl --namespace=websites create secret docker-registry regsecret --docker-server=registry.dbogatov.org --docker-username=dbogatov --docker-password=$DOCKERPASS --docker-email=dmytro@dbogatov.org
 
 # Save SSL certs
-
-echo "Saving SSL certs"
-
-# for websites
-kubectl create --namespace=websites secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
-kubectl create --namespace=kube-system secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
-kubectl create --namespace=monitoring secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
 
 kubectl create secret generic kubernetes-dashboard-certs --from-file=$CERTDIRPATH -n kube-system
 
@@ -144,6 +144,17 @@ echo "Applying config files"
 kubectl apply -R -f sources/nginx/
 
 kubectl apply -R -f services/
+
+echo "Deploying status site"
+
+kubectl create secret -n status-site generic appsettings.production.yml --from-file=$STATUSSITECONFIG
+
+# TODO should be master
+BRANCH="49-move-to-kubernetes-deployment"
+
+kubectl apply -f https://git.dbogatov.org/dbogatov/status-site/-/jobs/artifacts/$BRANCH/raw/deployment/config.yaml?job=release-deployment
+
+kubectl apply -R -f sources/status-site/
 
 echo "Done!"
 
