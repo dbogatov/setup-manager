@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: status-dbogatov-org
+  namespace: status-site
+  annotations:
+    kubernetes.io/ingress.class: "public"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - status-dbogatov-org.cluster.dbogatov.org
+    - status.dbogatov.org
+    secretName: lets-encrypt
+  rules:
+  - host: "status-dbogatov-org.cluster.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx
+          servicePort: 80
+  - host: "status.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx
+          servicePort: 80

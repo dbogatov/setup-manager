@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "public"
+    ingress.kubernetes.io/auth-signin: https://$host/oauth2/start
+    ingress.kubernetes.io/auth-url: https://$host/oauth2/auth
+    ingress.kubernetes.io/secure-backends: "true"
+    ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Authorization "Bearer __DASHBOARD_TOKEN__";
+  name: external-auth-oauth2
+  namespace: kube-system
+spec:
+  rules:
+  - host: dashboard-dbogatov-org.cluster.dbogatov.org
+    http:
+      paths:
+      - backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 443
+        path: /
+  - host: dashboard.dbogatov.org
+    http:
+      paths:
+      - backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 443
+        path: /
+  tls:
+  - hosts:
+    - dashboard-dbogatov-org.cluster.dbogatov.org
+    - dashboard.dbogatov.org
+    secretName: lets-encrypt
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: oauth2-proxy
+  namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: "public"
+spec:
+  rules:
+  - host: dashboard-dbogatov-org.cluster.dbogatov.org
+    http:
+      paths:
+      - backend:
+          serviceName: oauth2-proxy
+          servicePort: 4180
+        path: /oauth2
+  - host: dashboard.dbogatov.org
+    http:
+      paths:
+      - backend:
+          serviceName: oauth2-proxy
+          servicePort: 4180
+        path: /oauth2
+  tls:
+  - hosts:
+    - dashboard-dbogatov-org.cluster.dbogatov.org
+    - dashboard.dbogatov.org
+    secretName: lets-encrypt

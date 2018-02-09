@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: __NAME__
+  namespace: websites
+  annotations:
+    kubernetes.io/ingress.class: "public"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - __URL__
+    - www.__URL__
+    - __NAME__.cluster.dbogatov.org
+    secretName: lets-encrypt
+  rules:
+  - host: "__URL__"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: __NAME__
+          servicePort: 80
+  - host: "www.__URL__"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: __NAME__
+          servicePort: 80
+  - host: "__NAME__.cluster.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: __NAME__
+          servicePort: 80

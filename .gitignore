@@ -1,0 +1,8 @@
+# .gitignore
+*.tfstate
+*.tfstate.backup
+.terraform/
+*.lock*
+infra/services/
+
+.secret.sh
