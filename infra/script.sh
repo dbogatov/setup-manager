@@ -84,11 +84,11 @@ cd $CWD
 
 echo "Creating namespaces and saving SSL certs"
 
-NAMESPACES=("websites" "monitoring" "ingress" "status-site")
+NAMESPACES=("websites" "monitoring" "ingress" "status-site" "kube-system")
 
 for namespace in ${NAMESPACES[@]}
 do
-	kubectl create namespace $namespace
+	kubectl create namespace $namespace || true # some of them already exist
 	kubectl create --namespace=$namespace secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
 done
 
