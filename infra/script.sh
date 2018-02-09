@@ -111,9 +111,9 @@ echo "Deploying dashboard"
 
 kubectl apply -R -f addons/dashboard/
 
-echo "Deploying cluo"
+# echo "Deploying cluo"
 
-kubectl apply -R -f addons/cluo/
+# kubectl apply -R -f addons/cluo/
 
 echo "Deploying prometheus"
 
