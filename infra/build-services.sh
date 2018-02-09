@@ -20,8 +20,19 @@ do
 
 	cp sources/service/{ingress,service,deployment}.yaml services/$service
 
+	if [ "$service" == "moon-travel-com-ua" ]
+	then
+		URL="moon-travel.com.ua"
+	elif [ "$service" == "veles-russia-com" ]
+	then
+		URL="veles-russia.com"
+	else
+		URL=${service//-/.}
+	fi
+
 	sed -i -e "s#__NAME__#$service#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i -e "s#__IMAGE__#${SERVICES[${service}]}#g" services/$service/{ingress,service,deployment}.yaml
+	sed -i -e "s#__URL__#$URL#g" services/$service/{ingress,service,deployment}.yaml
 done
 
 ### Dashboard OAuth

@@ -12,9 +12,17 @@ spec:
   tls:
   - hosts:
     - status-dbogatov-org.cluster.dbogatov.org
+    - status.dbogatov.org
     secretName: lets-encrypt
   rules:
   - host: "status-dbogatov-org.cluster.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx
+          servicePort: 80
+  - host: "status.dbogatov.org"
     http:
       paths:
       - path: /

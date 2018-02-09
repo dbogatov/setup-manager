@@ -16,8 +16,8 @@ module "digital-ocean-dolores" {
   image            = "coreos-stable"
   controller_count = 1
   controller_type  = "s-1vcpu-1gb"
-  worker_count     = 2
-  worker_type      = "s-1vcpu-2gb"
+  worker_count     = 3
+  worker_type      = "s-2vcpu-2gb"
   ssh_fingerprints = ["df:a9:7f:e1:e5:e8:c7:3e:2c:c3:a9:ac:7c:bd:e7:a6"]
 
   # output assets dir

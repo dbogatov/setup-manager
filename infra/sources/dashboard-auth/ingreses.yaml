@@ -19,9 +19,17 @@ spec:
           serviceName: kubernetes-dashboard
           servicePort: 443
         path: /
+  - host: dashboard.dbogatov.org
+    http:
+      paths:
+      - backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 443
+        path: /
   tls:
   - hosts:
     - dashboard-dbogatov-org.cluster.dbogatov.org
+    - dashboard.dbogatov.org
     secretName: lets-encrypt
 
 ---
@@ -42,7 +50,15 @@ spec:
           serviceName: oauth2-proxy
           servicePort: 4180
         path: /oauth2
+  - host: dashboard.dbogatov.org
+    http:
+      paths:
+      - backend:
+          serviceName: oauth2-proxy
+          servicePort: 4180
+        path: /oauth2
   tls:
   - hosts:
     - dashboard-dbogatov-org.cluster.dbogatov.org
+    - dashboard.dbogatov.org
     secretName: lets-encrypt

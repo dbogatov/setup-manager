@@ -24,13 +24,24 @@ for domain in "${!DOMAINS[@]}"
 do
 	echo "Setting $domain..."
 
-	curl -X PUT -d "${DOMAINS[${domain}]}" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/$domain/A
-	curl -X PUT -d "${DOMAINS[${domain}]}" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/www.$domain/A
-	curl -X PUT -d "${DOMAINS[${domain}]}" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/*.$domain/A
+	VALUES=($(dig +short A ${DOMAINS[${domain}]}))
 
-	curl -X DELETE --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/$domain/CNAME
-	curl -X DELETE --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/www.$domain/CNAME
-	curl -X DELETE --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/*.$domain/CNAME
+	echo "Removing A records for $domain, *.$domain and www.$domain"
+
+	curl -X DELETE --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/$domain/A
+	curl -X DELETE --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/www.$domain/A
+	curl -X DELETE --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/*.$domain/A
+
+	for value in ${VALUES[@]}
+	do
+
+		echo "Setting A record value $value for $domain, *.$domain and www.$domain"
+
+		curl -X POST -d "$value" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/$domain/A
+		curl -X POST -d "$value" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/www.$domain/A
+		curl -X POST -d "$value" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/*.$domain/A
+
+	done
 
 done
 

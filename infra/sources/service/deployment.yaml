@@ -6,7 +6,7 @@ metadata:
   labels:
     application: __NAME__
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       application: __NAME__

@@ -39,21 +39,20 @@ SERVICES["blog-bogatov-kiev-ua"]="registry.dbogatov.org/daddy/blog-bogatov-kiev-
 
 declare -A DOMAINS
 
-MAINADDR="165.227.217.186"
-PHOTOBARRATADDR="192.241.158.207"
+AVALUE="dolores-workers.digital-ocean.dbogatov.org"
 
-DOMAINS["dbogatov.org"]=$MAINADDR
-DOMAINS["bogatov.kiev.ua"]=$MAINADDR
-DOMAINS["darinagulley.com"]=$MAINADDR
-DOMAINS["moon-travel.com.ua"]=$MAINADDR
-DOMAINS["nigmatullina.org"]=$MAINADDR
-DOMAINS["photobarrat.com"]=$PHOTOBARRATADDR
-DOMAINS["res-public.net"]=$MAINADDR
-DOMAINS["shevastream.com"]=$MAINADDR
-DOMAINS["travelus.com.ua"]=$MAINADDR
-DOMAINS["veles-russia.com"]=$MAINADDR
-DOMAINS["visajapan.com.ua"]=$MAINADDR
-DOMAINS["visasupport.com.ua"]=$MAINADDR
-DOMAINS["visasupport.kiev.ua"]=$MAINADDR
-DOMAINS["vleskniga.com"]=$MAINADDR
-DOMAINS["votings.net"]=$MAINADDR
+DOMAINS["dbogatov.org"]=$AVALUE
+DOMAINS["bogatov.kiev.ua"]=$AVALUE
+DOMAINS["darinagulley.com"]=$AVALUE
+DOMAINS["moon-travel.com.ua"]=$AVALUE
+DOMAINS["nigmatullina.org"]=$AVALUE
+DOMAINS["photobarrat.com"]=$AVALUE
+DOMAINS["res-public.net"]=$AVALUE
+DOMAINS["shevastream.com"]=$AVALUE
+DOMAINS["travelus.com.ua"]=$AVALUE
+DOMAINS["veles-russia.com"]=$AVALUE
+DOMAINS["visajapan.com.ua"]=$AVALUE
+DOMAINS["visasupport.com.ua"]=$AVALUE
+DOMAINS["visasupport.kiev.ua"]=$AVALUE
+DOMAINS["vleskniga.com"]=$AVALUE
+DOMAINS["votings.net"]=$AVALUE
