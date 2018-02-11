@@ -47,14 +47,12 @@ sleep 30
 
 # Add SWAP to master
 
-echo "Adding SWAP file to the master"
+echo "Adding SWAP file to the nodes"
 
 cd $CWD
 
-ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@dolores.digital-ocean.dbogatov.org "sudo mkdir -p /var/vm"
-ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@dolores.digital-ocean.dbogatov.org "sudo fallocate -l 2048m /var/vm/swapfile1"
-ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@dolores.digital-ocean.dbogatov.org "sudo chmod 600 /var/vm/swapfile1"
-ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@dolores.digital-ocean.dbogatov.org "sudo mkswap /var/vm/swapfile1"
+IPS=($(dig +short A dolores-workers.digital-ocean.dbogatov.org))
+IPS+=($(dig +short A dolores.digital-ocean.dbogatov.org))
 
 cat >var-vm-swapfile1.swap <<EOL
 [Unit]
@@ -67,10 +65,22 @@ What=/var/vm/swapfile1
 WantedBy=multi-user.target
 EOL
 
-scp  -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" var-vm-swapfile1.swap core@dolores.digital-ocean.dbogatov.org:/home/core
+for ip in ${IPS[@]}
+do
 
-ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@dolores.digital-ocean.dbogatov.org "sudo mv var-vm-swapfile1.swap /etc/systemd/system/"
-ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@dolores.digital-ocean.dbogatov.org "sudo systemctl enable --now var-vm-swapfile1.swap"
+	echo "Adding space for node $ip"
+
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkdir -p /var/vm"
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo fallocate -l 2048m /var/vm/swapfile1"
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo chmod 600 /var/vm/swapfile1"
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkswap /var/vm/swapfile1"
+
+	scp  -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" var-vm-swapfile1.swap core@$ip:/home/core
+
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mv var-vm-swapfile1.swap /etc/systemd/system/"
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo systemctl enable --now var-vm-swapfile1.swap"
+
+done
 
 rm var-vm-swapfile1.swap
 
