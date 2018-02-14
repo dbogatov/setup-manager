@@ -80,6 +80,10 @@ do
 	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mv var-vm-swapfile1.swap /etc/systemd/system/"
 	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo systemctl enable --now var-vm-swapfile1.swap"
 
+	echo "Enabling SWAP support for kubelet"
+
+	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo sed -i '/kubelet-wrapper/a \  --fail-swap-on=false \\\' /etc/systemd/system/kubelet.service"
+
 done
 
 rm var-vm-swapfile1.swap
