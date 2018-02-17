@@ -24,6 +24,7 @@ spec:
             - /nginx-ingress-controller
             - --default-backend-service=$(POD_NAMESPACE)/default-backend
             - --ingress-class=public
+            - --sort-backends=true
             - --default-ssl-certificate=websites/lets-encrypt
             - --annotations-prefix=ingress.kubernetes.io
             - --configmap=$(POD_NAMESPACE)/nginx-configuration
