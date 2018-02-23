@@ -56,3 +56,11 @@ DOMAINS["visasupport.com.ua"]=$AVALUE
 DOMAINS["visasupport.kiev.ua"]=$AVALUE
 DOMAINS["vleskniga.com"]=$AVALUE
 DOMAINS["votings.net"]=$AVALUE
+
+###
+
+declare -A PLACEHOLDERS
+
+PLACEHOLDERS["status-dbogatov-org"]="under-maintenance"
+PLACEHOLDERS["votings-net"]="under-maintenance"
+PLACEHOLDERS["res-public-net"]="under-maintenance"

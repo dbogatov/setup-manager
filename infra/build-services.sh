@@ -4,16 +4,15 @@ set -e
 
 shopt -s globstar
 
-source sources/data.sh
-source ./.secret.sh
+# 
+# $1 - service
+# $2 - image
+# 
+generate-service () {
 
-rm -rf services/
-mkdir -p services
+	service=$1
+	image=$2
 
-cp sources/namespace.yaml services/
-
-for service in "${!SERVICES[@]}" 
-do
 	echo "Generating $service configs..."
 
 	mkdir -p services/$service
@@ -26,13 +25,35 @@ do
 	elif [ "$service" == "veles-russia-com" ]
 	then
 		URL="veles-russia.com"
+	elif [ "$service" == "res-public-net" ]
+	then
+		URL="res-public.net"
 	else
 		URL=${service//-/.}
 	fi
 
 	sed -i -e "s#__NAME__#$service#g" services/$service/{ingress,service,deployment}.yaml
-	sed -i -e "s#__IMAGE__#${SERVICES[${service}]}#g" services/$service/{ingress,service,deployment}.yaml
+	sed -i -e "s#__IMAGE__#$image#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i -e "s#__URL__#$URL#g" services/$service/{ingress,service,deployment}.yaml
+
+}
+
+source sources/data.sh
+source ./.secret.sh
+
+rm -rf services/
+mkdir -p services
+
+cp sources/namespace.yaml services/
+
+for service in "${!SERVICES[@]}" 
+do
+	generate-service $service ${SERVICES[${service}]}
+done
+
+for placeholder in "${!PLACEHOLDERS[@]}" 
+do
+	generate-service $placeholder registry.dbogatov.org/dbogatov/nginx-placeholders/${PLACEHOLDERS[${placeholder}]}:latest
 done
 
 ### Dashboard OAuth

@@ -159,16 +159,16 @@ kubectl apply -R -f sources/nginx/
 
 kubectl apply -R -f services/
 
-echo "Deploying status site"
+echo "Deploying status site SKIPPED"
 
-kubectl create secret -n status-site generic appsettings.production.yml --from-file=$STATUSSITECONFIG
+# kubectl create secret -n status-site generic appsettings.production.yml --from-file=$STATUSSITECONFIG
 
 # TODO should be master
-BRANCH="49-move-to-kubernetes-deployment"
+# BRANCH="49-move-to-kubernetes-deployment"
 
-kubectl apply -f https://git.dbogatov.org/dbogatov/status-site/-/jobs/artifacts/$BRANCH/raw/deployment/config.yaml?job=release-deployment
+# kubectl apply -f https://git.dbogatov.org/dbogatov/status-site/-/jobs/artifacts/$BRANCH/raw/deployment/config.yaml?job=release-deployment
 
-kubectl apply -R -f sources/status-site/
+# kubectl apply -R -f sources/status-site/
 
 echo "Done!"
 
