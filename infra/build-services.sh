@@ -4,6 +4,8 @@ set -e
 
 shopt -s globstar
 
+REPLICAS="3"
+
 # 
 # $1 - service
 # $2 - image
@@ -12,12 +14,18 @@ generate-service () {
 
 	service=$1
 	image=$2
+	replicas=$REPLICAS
 
 	echo "Generating $service configs..."
 
 	mkdir -p services/$service
 
 	cp sources/service/{ingress,service,deployment}.yaml services/$service
+
+	if [ "$service" == "legacy-dbogatov-org" ]
+	then
+		replicas="1"
+	fi
 
 	if [ "$service" == "moon-travel-com-ua" ]
 	then
@@ -38,6 +46,7 @@ generate-service () {
 	sed -i -e "s#__IMAGE__#$image#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i -e "s#__NAME__#$service#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i -e "s#__URL__#$URL#g" services/$service/{ingress,service,deployment}.yaml
+	sed -i -e "s#__REPLICAS__#$replicas#g" services/$service/{ingress,service,deployment}.yaml
 
 }
 
