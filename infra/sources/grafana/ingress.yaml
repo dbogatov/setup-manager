@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-dbogatov-org
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: "public"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - grafana.dbogatov.org
+    - grafana-dbogatov-org.cluster.dbogatov.org
+    secretName: lets-encrypt
+  rules:
+  - host: "grafana.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: 80
+  - host: "grafana-dbogatov-org.cluster.dbogatov.org"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: 80
