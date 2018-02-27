@@ -159,6 +159,8 @@ kubectl apply -R -f sources/nginx/
 
 kubectl apply -R -f services/
 
+kubectl apply -R -f dashboard/
+
 echo "Deploying status site SKIPPED"
 
 # kubectl create secret -n status-site generic appsettings.production.yml --from-file=$STATUSSITECONFIG

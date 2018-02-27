@@ -4,5 +4,6 @@
 .terraform/
 *.lock*
 infra/services/
+infra/dashboard/
 
 .secret.sh
