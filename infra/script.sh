@@ -104,8 +104,8 @@ for namespace in ${NAMESPACES[@]}
 do
 	kubectl create namespace $namespace || true # some of them already exist
 	kubectl create --namespace=$namespace secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
+	kubectl create --namespace=$namespace secret generic basic-auth --from-file=$CERTDIRPATH/auth
 done
-
 
 echo "Deploying the registry secret"
 

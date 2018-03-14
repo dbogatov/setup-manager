@@ -15,6 +15,7 @@ generate-service () {
 	service=$1
 	image=$2
 	replicas=$REPLICAS
+	auth=""
 
 	echo "Generating $service configs..."
 
@@ -25,6 +26,11 @@ generate-service () {
 	if [ "$service" == "legacy-dbogatov-org" ]
 	then
 		replicas="1"
+	fi
+
+	if [ "$service" == "webcam-dbogatov-org" ]
+	then
+		auth="ingress.kubernetes.io/auth-type: basic"
 	fi
 
 	if [ "$service" == "moon-travel-com-ua" ]
@@ -47,6 +53,7 @@ generate-service () {
 	sed -i -e "s#__NAME__#$service#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i -e "s#__URL__#$URL#g" services/$service/{ingress,service,deployment}.yaml
 	sed -i -e "s#__REPLICAS__#$replicas#g" services/$service/{ingress,service,deployment}.yaml
+	sed -i -e "s#__AUTH__#$auth#g" services/$service/{ingress,service,deployment}.yaml
 
 }
 

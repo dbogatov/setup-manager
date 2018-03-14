@@ -8,6 +8,9 @@ metadata:
     ingress.kubernetes.io/force-ssl-redirect: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
     ingress.kubernetes.io/from-to-www-redirect: "true"
+    ingress.kubernetes.io/auth-secret: basic-auth
+    ingress.kubernetes.io/auth-realm: "Authentication Required!"
+    __AUTH__
 spec:
   tls:
   - hosts:
@@ -17,13 +20,6 @@ spec:
     secretName: lets-encrypt
   rules:
   - host: "__URL__"
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: __NAME__
-          servicePort: 80
-  - host: "www.__URL__"
     http:
       paths:
       - path: /

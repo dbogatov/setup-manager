@@ -17,6 +17,7 @@ DOMAINS["cluster.dbogatov.org"]=false
 DOMAINS["grafana.dbogatov.org"]=false
 DOMAINS["git.dbogatov.org"]=false
 DOMAINS["pages.dbogatov.org"]=false
+DOMAINS["webcam.dbogatov.org"]=false
 DOMAINS["mattermost.dbogatov.org"]=false
 DOMAINS["minecraft.dbogatov.org"]=false
 DOMAINS["ci.dbogatov.org"]=false
