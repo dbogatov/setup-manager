@@ -11,3 +11,5 @@ CWD=$(pwd)
 source ./.secret.sh
 
 curl -s -X PUT -d "$CERTBOT_VALIDATION" --user $EMAIL:$PASSWORD https://box.dbogatov.org/admin/dns/custom/_acme-challenge.$CERTBOT_DOMAIN/TXT
+
+sleep 2

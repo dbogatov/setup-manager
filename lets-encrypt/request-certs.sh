@@ -14,7 +14,9 @@ REQDOMAINS=$(get-domains)
 
 certbot certonly \
 	\
-	--text --agree-tos --email dmytro@dbogatov.org \
+	--server https://acme-v02.api.letsencrypt.org/directory \
+	\
+	-n --text --agree-tos --email dmytro@dbogatov.org \
 	--expand --renew-by-default \
 	--manual-public-ip-logging-ok \
     \
