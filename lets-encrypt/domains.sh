@@ -4,6 +4,7 @@ declare -A DOMAINS
 
 DOMAINS["dbogatov.org"]=true
 DOMAINS["cluster.dbogatov.org"]=true
+DOMAINS["pages.dbogatov.org"]=true
 
 DOMAINS["bogatov.kiev.ua"]=true
 DOMAINS["visasupport.com.ua"]=true
