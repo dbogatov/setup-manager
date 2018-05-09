@@ -43,6 +43,9 @@ declare -A DOMAINS
 AVALUE="dolores-workers.digital-ocean.dbogatov.org"
 
 DOMAINS["dbogatov.org"]=$AVALUE
+DOMAINS["dmytro.app"]=$AVALUE
+DOMAINS["bogatov.app"]=$AVALUE
+
 DOMAINS["bogatov.kiev.ua"]=$AVALUE
 DOMAINS["darinagulley.com"]=$AVALUE
 DOMAINS["moon-travel.com.ua"]=$AVALUE
