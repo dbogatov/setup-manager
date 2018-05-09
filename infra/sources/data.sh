@@ -46,6 +46,7 @@ DOMAINS["dbogatov.org"]=$AVALUE
 DOMAINS["dmytro.app"]=$AVALUE
 DOMAINS["bogatov.app"]=$AVALUE
 
+DOMAINS["netwatch.app"]=$AVALUE
 DOMAINS["bogatov.kiev.ua"]=$AVALUE
 DOMAINS["darinagulley.com"]=$AVALUE
 DOMAINS["moon-travel.com.ua"]=$AVALUE
@@ -65,7 +66,8 @@ DOMAINS["votings.net"]=$AVALUE
 
 declare -A PLACEHOLDERS
 
-PLACEHOLDERS["status-dbogatov-org"]="under-maintenance"
+PLACEHOLDERS["netwatch-app"]="under-maintenance"
+
 PLACEHOLDERS["votings-net"]="under-maintenance"
 PLACEHOLDERS["res-public-net"]="under-maintenance"
 

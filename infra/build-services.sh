@@ -34,18 +34,34 @@ generate-ingress () {
 	for url in ${URLS[@]}
 	do
 		echo "    - $url" >> $DIR/main.yaml
+		echo "    - www.$url" >> $DIR/main.yaml
+	done
+
+	for main in ${MAIN[@]}
+	do
+		echo "    - $NAME.cluster.$main" >> $DIR/main.yaml
 	done
 
 	echo "  rules:" >> $DIR/main.yaml
 
 	for url in ${URLS[@]}
 	do
-		cp $DIR/rule.yaml $DIR/rule-$NAME.yaml
+		cp $DIR/rule-domain.yaml $DIR/rule-tmp.yaml
 
-		sed -i -e "s#__NAME__#$NAME#g" $DIR/rule-$NAME.yaml
-		sed -i -e "s#__URL__#$url#g" $DIR/rule-$NAME.yaml
+		sed -i -e "s#__NAME__#$NAME#g" $DIR/rule-tmp.yaml
+		sed -i -e "s#__URL__#$url#g" $DIR/rule-tmp.yaml
 
-		cat $DIR/rule-$NAME.yaml >> $DIR/main.yaml
+		cat $DIR/rule-tmp.yaml >> $DIR/main.yaml
+	done
+
+	for main in ${MAIN[@]}
+	do
+		cp $DIR/rule-cluster.yaml $DIR/rule-tmp.yaml
+
+		sed -i -e "s#__NAME__#$NAME#g" $DIR/rule-tmp.yaml
+		sed -i -e "s#__URL__#$main#g" $DIR/rule-tmp.yaml
+
+		cat $DIR/rule-tmp.yaml >> $DIR/main.yaml
 	done
 
 	cp $DIR/main.yaml $DIR/../ingress.yaml
@@ -74,7 +90,7 @@ generate-service () {
 	mkdir -p services/$service/ingress
 
 	cp sources/service/{service,deployment}.yaml services/$service
-	cp sources/service/ingress/{main,rule}.yaml services/$service/ingress
+	cp sources/service/ingress/{main,rule-*}.yaml services/$service/ingress
 
 	if [ "$service" == "legacy-dbogatov-org" ]
 	then

@@ -1,0 +1,7 @@
+  - host: "__NAME__.cluster.__URL__"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: __NAME__
+          servicePort: 80
