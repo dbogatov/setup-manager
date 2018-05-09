@@ -6,6 +6,58 @@ shopt -s globstar
 
 REPLICAS="3"
 
+#
+# $1 - URL
+# $2 - name
+# $3 - auth
+#
+generate-ingress () {
+
+	URL=$1
+	NAME=$2
+	AUTH=$3
+
+	DIR=services/$NAME/ingress
+
+	URLS=()
+
+	if [[ $URL = *dbogatov.org* ]]
+	then
+		for main in ${MAIN[@]}
+		do
+			URLS+=(${URL/dbogatov.org/$main})
+		done
+	else
+		URLS+=($URL)
+	fi
+
+	for url in ${URLS[@]}
+	do
+		echo "    - $url" >> $DIR/main.yaml
+	done
+
+	echo "  rules:" >> $DIR/main.yaml
+
+	for url in ${URLS[@]}
+	do
+		cp $DIR/rule.yaml $DIR/rule-$NAME.yaml
+
+		sed -i -e "s#__NAME__#$NAME#g" $DIR/rule-$NAME.yaml
+		sed -i -e "s#__URL__#$url#g" $DIR/rule-$NAME.yaml
+
+		cat $DIR/rule-$NAME.yaml >> $DIR/main.yaml
+	done
+
+	cp $DIR/main.yaml $DIR/../ingress.yaml
+
+	sed -i -e "s#__AUTH__#$AUTH#g" $DIR/../ingress.yaml
+	sed -i -e "s#__NAME__#$NAME#g" $DIR/../ingress.yaml
+
+	sed -i -e '/^\s*$/d' $DIR/../ingress.yaml
+
+	rm -r $DIR
+}
+
 # 
 # $1 - service
 # $2 - image
@@ -19,9 +71,10 @@ generate-service () {
 
 	echo "Generating $service configs..."
 
-	mkdir -p services/$service
+	mkdir -p services/$service/ingress
 
-	cp sources/service/{ingress,service,deployment}.yaml services/$service
+	cp sources/service/{service,deployment}.yaml services/$service
+	cp sources/service/ingress/{main,rule}.yaml services/$service/ingress
 
 	if [ "$service" == "legacy-dbogatov-org" ]
 	then
@@ -49,12 +102,13 @@ generate-service () {
 	docker pull $image > /dev/null
 	image=$(docker inspect --format='{{index .RepoDigests 0}}' $image)
 
-	sed -i -e "s#__IMAGE__#$image#g" services/$service/{ingress,service,deployment}.yaml
-	sed -i -e "s#__NAME__#$service#g" services/$service/{ingress,service,deployment}.yaml
-	sed -i -e "s#__URL__#$URL#g" services/$service/{ingress,service,deployment}.yaml
-	sed -i -e "s#__REPLICAS__#$replicas#g" services/$service/{ingress,service,deployment}.yaml
-	sed -i -e "s#__AUTH__#$auth#g" services/$service/{ingress,service,deployment}.yaml
+	sed -i -e "s#__IMAGE__#$image#g" services/$service/{service,deployment}.yaml
+	sed -i -e "s#__NAME__#$service#g" services/$service/{service,deployment}.yaml
+	sed -i -e "s#__URL__#$URL#g" services/$service/{service,deployment}.yaml
+	sed -i -e "s#__REPLICAS__#$replicas#g" services/$service/{service,deployment}.yaml
+	sed -i -e "s#__AUTH__#$auth#g" services/$service/{service,deployment}.yaml
 
+	generate-ingress "$URL" "$service" "$auth"
 }
 
 source sources/data.sh

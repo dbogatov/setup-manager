@@ -13,23 +13,5 @@ metadata:
     __AUTH__
 spec:
   tls:
-  - hosts:
-    - __URL__
-    - www.__URL__
-    - __NAME__.cluster.dbogatov.org
-    secretName: lets-encrypt
-  rules:
-  - host: "__URL__"
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: __NAME__
-          servicePort: 80
-  - host: "__NAME__.cluster.dbogatov.org"
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: __NAME__
-          servicePort: 80
+  - secretName: lets-encrypt
+    hosts:

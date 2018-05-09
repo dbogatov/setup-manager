@@ -65,3 +65,7 @@ declare -A PLACEHOLDERS
 PLACEHOLDERS["status-dbogatov-org"]="under-maintenance"
 PLACEHOLDERS["votings-net"]="under-maintenance"
 PLACEHOLDERS["res-public-net"]="under-maintenance"
+
+###
+
+MAIN=( "dbogatov.org" "dmytro.app" "bogatov.app" )
