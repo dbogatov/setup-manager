@@ -32,6 +32,7 @@ SERVICES["vleskniga-com"]="registry.dbogatov.org/slokot/vleskniga:latest"
 SERVICES["veles-russia-com"]="registry.dbogatov.org/slokot/veles-russia:latest"
 
 SERVICES["photobarrat-com"]="registry.dbogatov.org/dbogatov/nginx-proxies/photobarrat-com:latest"
+SERVICES["new-photobarrat-com"]="registry.dbogatov.org/dbogatov/new-photobarrat-com:latest"
 
 SERVICES["bogatov-kiev-ua"]="registry.dbogatov.org/daddy/bogatov-kiev-ua:latest"
 SERVICES["blog-bogatov-kiev-ua"]="registry.dbogatov.org/daddy/blog-bogatov-kiev-ua:latest"
