@@ -13,7 +13,6 @@ CWD=$(pwd)
 usage () {
 	printf "usage: ./$0 <certDirPath> <statusSiteConfig>\n"
 	printf "where\n"
-	# printf "\t pswd - docker registry password for host registry.dbogatov.org and user dbogatov\n"
 	printf "\t certDirPath - absolute path to directory with SSL cert (certificate.crt) and key (certificate.key) file\n"
 	printf "\t statusSiteConfig - absolute path to appsettings.production.yml file\n"
 
