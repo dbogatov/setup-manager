@@ -11,23 +11,24 @@ CWD=$(pwd)
 # Checks
 
 usage () {
-	printf "usage: ./$0 <pswd> <certDirPath> <statusSiteConfig>\n"
+	printf "usage: ./$0 <certDirPath> <statusSiteConfig>\n"
 	printf "where\n"
-	printf "\t pswd - docker registry password for host registry.dbogatov.org and user dbogatov\n"
+	# printf "\t pswd - docker registry password for host registry.dbogatov.org and user dbogatov\n"
 	printf "\t certDirPath - absolute path to directory with SSL cert (certificate.crt) and key (certificate.key) file\n"
 	printf "\t statusSiteConfig - absolute path to appsettings.production.yml file\n"
 
 	exit 1;
 }
 
-if ! [ $# -eq 3 ]
+if ! [ $# -eq 2 ]
 then
 	usage
 fi
 
-DOCKERPASS=$1
-CERTDIRPATH=$2
-STATUSSITECONFIG=$3
+source .secret.sh
+
+CERTDIRPATH=$1
+STATUSSITECONFIG=$2
 
 # Initiate cluster
 

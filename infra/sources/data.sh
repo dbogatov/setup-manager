@@ -4,7 +4,7 @@ declare -A SERVICES
 
 SERVICES["dbogatov-org"]="registry.dbogatov.org/dbogatov/cv-website:latest"
 SERVICES["blog-dbogatov-org"]="registry.dbogatov.org/dbogatov/my-blog:latest"
-SERVICES["legacy-dbogatov-org"]="dbogatov/legacy:latest"
+SERVICES["legacy-dbogatov-org"]="registry.hub.docker.com/dbogatov/legacy:latest"
 SERVICES["socialimps-dbogatov-org"]="registry.dbogatov.org/dbogatov/cs-3043-group-project:latest"
 SERVICES["push-dbogatov-org"]="registry.dbogatov.org/dbogatov/pushexpress:latest"
 SERVICES["mail-dbogatov-org"]="registry.dbogatov.org/dbogatov/nginx-proxies/mail-dbogatov-org:latest"

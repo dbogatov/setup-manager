@@ -4,7 +4,13 @@ set -e
 
 shopt -s globstar
 
+# Ensure that the CWD is set to script's location
+cd "${0%/*}"
+CWD=$(pwd)
+
 REPLICAS="3"
+
+source .secret.sh
 
 #
 # $1 - URL
@@ -115,8 +121,14 @@ generate-service () {
 		URL=${service//-/.}
 	fi
 
-	docker pull $image > /dev/null
-	image=$(docker inspect --format='{{index .RepoDigests 0}}' $image)
+	creds="--creds=dbogatov:$DOCKERPASS"
+	if [[ $image = *"registry.hub.docker.com"* ]]; then
+		creds=""
+	fi
+	digest=$(skopeo inspect $creds docker://$image  | jq '.Digest')
+	digest="${digest%\"}"
+	digest="${digest#\"}"
+	image=${image%:*}@$digest
 
 	sed -i -e "s#__IMAGE__#$image#g" services/$service/{service,deployment}.yaml
 	sed -i -e "s#__NAME__#$service#g" services/$service/{service,deployment}.yaml
