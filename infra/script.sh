@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 
 set -e
 
@@ -11,17 +11,17 @@ CWD=$(pwd)
 # Checks
 
 usage () {
-	printf "usage: ./$0 <certDirPath> <statusSiteConfig>\n"
-	printf "where\n"
-	printf "\t certDirPath - absolute path to directory with SSL cert (certificate.crt) and key (certificate.key) file\n"
-	printf "\t statusSiteConfig - absolute path to appsettings.production.yml file\n"
-
-	exit 1;
+    printf "usage: ./$0 <certDirPath> <statusSiteConfig>\n"
+    printf "where\n"
+    printf "\t certDirPath - absolute path to directory with SSL cert (certificate.crt) and key (certificate.key) file\n"
+    printf "\t statusSiteConfig - absolute path to appsettings.production.yml file\n"
+    
+    exit 1;
 }
 
 if ! [ $# -eq 2 ]
 then
-	usage
+    usage
 fi
 
 source .secret.sh
@@ -49,14 +49,14 @@ sleep 30
 
 echo "Adding SWAP file to the nodes"
 
-cd $CWD
+cd "$CWD"
 
-IPS=($(dig +short A dolores-workers.digital-ocean.dbogatov.org))
-IPS+=($(dig +short A dolores.digital-ocean.dbogatov.org))
+IPS=("$(dig +short A dolores-workers.digital-ocean.dbogatov.org)")
+IPS+=("$(dig +short A dolores.digital-ocean.dbogatov.org)")
 
 cat >var-vm-swapfile1.swap <<EOL
 [Unit]
-Description=Turn on swapcd clu	
+Description=Turn on swapcd clu
 
 [Swap]
 What=/var/vm/swapfile1
@@ -65,25 +65,25 @@ What=/var/vm/swapfile1
 WantedBy=multi-user.target
 EOL
 
-for ip in ${IPS[@]}
+for ip in "${IPS[@]}"
 do
-
-	echo "Adding space for node $ip"
-
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkdir -p /var/vm"
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo fallocate -l 2048m /var/vm/swapfile1"
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo chmod 600 /var/vm/swapfile1"
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkswap /var/vm/swapfile1"
-
-	scp  -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" var-vm-swapfile1.swap core@$ip:/home/core
-
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mv var-vm-swapfile1.swap /etc/systemd/system/"
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo systemctl enable --now var-vm-swapfile1.swap"
-
-	echo "Enabling SWAP support for kubelet"
-
-	ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo sed -i '/kubelet-wrapper/a \  --fail-swap-on=false \\\' /etc/systemd/system/kubelet.service"
-
+    
+    echo "Adding space for node $ip"
+    
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkdir -p /var/vm"
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo fallocate -l 2048m /var/vm/swapfile1"
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo chmod 600 /var/vm/swapfile1"
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkswap /var/vm/swapfile1"
+    
+    scp  -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" var-vm-swapfile1.swap core@$ip:/home/core
+    
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mv var-vm-swapfile1.swap /etc/systemd/system/"
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo systemctl enable --now var-vm-swapfile1.swap"
+    
+    echo "Enabling SWAP support for kubelet"
+    
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo sed -i '/kubelet-wrapper/a \  --fail-swap-on=false \\\' /etc/systemd/system/kubelet.service"
+    
 done
 
 rm var-vm-swapfile1.swap
@@ -94,17 +94,17 @@ echo "Waiting 30 secs..."
 
 sleep 30
 
-cd $CWD
+cd "$CWD"
 
 echo "Creating namespaces and saving SSL certs"
 
 NAMESPACES=("websites" "monitoring" "ingress" "status-site" "kube-system")
 
-for namespace in ${NAMESPACES[@]}
+for namespace in "${NAMESPACES[@]}"
 do
-	kubectl create namespace $namespace || true # some of them already exist
-	kubectl create --namespace=$namespace secret tls lets-encrypt --key $CERTDIRPATH/certificate.key --cert $CERTDIRPATH/certificate.crt
-	kubectl create --namespace=$namespace secret generic basic-auth --from-file=$CERTDIRPATH/auth
+    kubectl create namespace "$namespace" || true # some of them already exist
+    kubectl create --namespace="$namespace" secret tls lets-encrypt --key "$CERTDIRPATH"/certificate.key --cert "$CERTDIRPATH"/certificate.crt
+    kubectl create --namespace="$namespace" secret generic basic-auth --from-file=$CERTDIRPATH/auth
 done
 
 echo "Deploying the registry secret"
@@ -149,6 +149,11 @@ echo "Deploying the websites"
 
 cd $CWD
 
+echo "Deploying websites' settings"
+
+# kubectl create secret -n status-site generic appsettings.production.yml --from-file=$STATUSSITECONFIG
+kubectl create secret -n websites generic shevastream-appsettings --from-file=appsettings=sources/shevastream/appsettings.json
+
 echo "Generating config files"
 
 ./build-services.sh
@@ -162,8 +167,6 @@ kubectl apply -R -f services/
 kubectl apply -R -f dashboard/
 
 echo "Deploying status site SKIPPED"
-
-# kubectl create secret -n status-site generic appsettings.production.yml --from-file=$STATUSSITECONFIG
 
 # TODO should be master
 # BRANCH="49-move-to-kubernetes-deployment"

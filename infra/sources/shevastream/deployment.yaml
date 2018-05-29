@@ -1,0 +1,10 @@
+          volumeMounts:
+            - name: appsettings
+              mountPath: "/run/secrets/"
+      volumes:
+        - name: appsettings
+          secret:
+            secretName: shevastream-appsettings
+            items:
+            - key: appsettings
+              path: appsettings.production.json

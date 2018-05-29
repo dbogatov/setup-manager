@@ -137,6 +137,11 @@ generate-service () {
 	sed -i -e "s#__AUTH__#$auth#g" services/$service/{service,deployment}.yaml
 
 	generate-ingress "$URL" "$service" "$auth"
+
+	if [ "$service" == "shevastream-com" ]
+	then
+		cat sources/shevastream/deployment.yaml >> services/$service/deployment.yaml
+	fi
 }
 
 source sources/data.sh

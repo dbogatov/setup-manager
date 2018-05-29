@@ -15,9 +15,9 @@ spec:
       labels:
         application: __NAME__
     spec:
+      imagePullSecrets:
+        - name: regsecret
       containers:
         - name: __NAME__
           image: __IMAGE__
           imagePullPolicy: Always
-      imagePullSecrets:
-        - name: regsecret
