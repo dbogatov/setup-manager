@@ -98,11 +98,6 @@ generate-service () {
 	cp sources/service/{service,deployment}.yaml services/$service
 	cp sources/service/ingress/{main,rule-*}.yaml services/$service/ingress
 
-	if [ "$service" == "legacy-dbogatov-org" ]
-	then
-		replicas="1"
-	fi
-
 	if [ "$service" == "webcam-dbogatov-org" ]
 	then
 		auth="ingress.kubernetes.io/auth-type: basic"
