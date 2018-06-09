@@ -9,3 +9,7 @@ infra/dashboard/
 .secret.sh
 
 infra/sources/shevastream/appsettings.json
+
+infra/terraform/spaces/
+
+infra/spaces-buffer

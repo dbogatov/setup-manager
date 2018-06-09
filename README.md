@@ -1,5 +1,9 @@
 # Setup Manager
 
+> When re-deploying change API key, SSH key and domain ownership!
+
+> Run set.dns.sh, test-websites.sh and migrate-spaces.sh
+
 * Follow [this](https://typhoon.psdn.io/digital-ocean/) to create a working Kubernetes cluster.
 * [Create docker pull secret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 * Use [this](https://github.com/poseidon/typhoon/blob/c3b0cdddf3310c3d6946ab018cff5229ce96623f/docs/addons/prometheus.md) to set up Prometheus-Grafana.

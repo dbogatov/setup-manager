@@ -65,9 +65,9 @@ What=/var/vm/swapfile1
 WantedBy=multi-user.target
 EOL
 
-for ip in "${IPS[@]}"
+for ip in ${IPS[@]}
 do
-    
+
     echo "Adding space for node $ip"
     
     ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" core@$ip "sudo mkdir -p /var/vm"
@@ -100,7 +100,7 @@ echo "Creating namespaces and saving SSL certs"
 
 NAMESPACES=("websites" "monitoring" "ingress" "status-site" "kube-system")
 
-for namespace in "${NAMESPACES[@]}"
+for namespace in ${NAMESPACES[@]}
 do
     kubectl create namespace "$namespace" || true # some of them already exist
     kubectl create --namespace="$namespace" secret tls lets-encrypt --key "$CERTDIRPATH"/certificate.key --cert "$CERTDIRPATH"/certificate.crt

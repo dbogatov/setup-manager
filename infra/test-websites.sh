@@ -16,7 +16,7 @@ SERVICE_UNABAILBALE="503"
 MAIN=("dbogatov.org" "dmytro.app" "bogatov.app")
 
 DOMAINS["__MAIN__"]=$SUCCESS
-DOMAINS["status.__MAIN__"]=$SERVICE_UNABAILBALE
+DOMAINS["status.__MAIN__"]=$PERMANENT_REDIRECT
 DOMAINS["blog.__MAIN__"]=$SUCCESS
 DOMAINS["legacy.__MAIN__"]=$SUCCESS
 DOMAINS["push.__MAIN__"]=$SUCCESS
@@ -24,8 +24,9 @@ DOMAINS["socialimps.__MAIN__"]=$SUCCESS
 DOMAINS["mail.__MAIN__"]=$SUCCESS
 DOMAINS["dns.__MAIN__"]=$SUCCESS
 
-
 DOMAINS["dashboard.dbogatov.org"]=$FOUND
+
+DOMAINS["netwatch.app"]=$SERVICE_UNABAILBALE
 
 DOMAINS["bogatov.kiev.ua"]=$SUCCESS
 DOMAINS["blog.bogatov.kiev.ua"]=$SUCCESS
