@@ -10,7 +10,7 @@ SERVICES["push-dbogatov-org"]="registry.dbogatov.org/dbogatov/pushexpress:latest
 SERVICES["mail-dbogatov-org"]="registry.dbogatov.org/dbogatov/nginx-proxies/mail-dbogatov-org:latest"
 SERVICES["dns-dbogatov-org"]="registry.dbogatov.org/dbogatov/nginx-proxies/dns-dbogatov-org:latest"
 SERVICES["webcam-dbogatov-org"]="registry.dbogatov.org/dbogatov/nginx-proxies/webcam-dbogatov-org:latest"
-SERVICES["ore-dbogatov-org"]="registry.dbogatov.org/bu/cs-562/project-code/docs:master"
+SERVICES["ore-dbogatov-org"]="registry.dbogatov.org/bu/ore-benchmark/project-code/docs:master"
 SERVICES["status-dbogatov-org"]="registry.dbogatov.org/dbogatov/nginx-proxies/status-dbogatov-org:latest"
 
 SERVICES["nigmatullina-org"]="registry.dbogatov.org/dbogatov/inara-cv:latest"
